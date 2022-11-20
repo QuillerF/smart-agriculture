@@ -1,0 +1,46 @@
+<svg
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ width="432px" height="42.5px">
+<defs>
+<filter id="Filter_0">
+    <feOffset in="SourceAlpha" dx="0" dy="0" />
+    <feGaussianBlur result="blurOut" stdDeviation="1.732" />
+    <feFlood flood-color="rgb(64, 217, 255)" result="floodOut" />
+    <feComposite operator="out" in="floodOut" in2="blurOut" result="compOut" />
+    <feComposite operator="in" in="compOut" in2="SourceAlpha" />
+    <feComponentTransfer><feFuncA type="linear" slope="1"/></feComponentTransfer>
+    <feBlend mode="screen" in2="SourceGraphic" />
+</filter>
+<filter id="Filter_1">
+    <feOffset in="SourceAlpha" dx="0" dy="0" />
+    <feGaussianBlur result="blurOut" stdDeviation="1.732" />
+    <feFlood flood-color="rgb(64, 217, 255)" result="floodOut" />
+    <feComposite operator="out" in="floodOut" in2="blurOut" result="compOut" />
+    <feComposite operator="in" in="compOut" in2="SourceAlpha" />
+    <feComponentTransfer><feFuncA type="linear" slope="1"/></feComponentTransfer>
+    <feBlend mode="screen" in2="SourceGraphic" />
+</filter>
+
+</defs>
+<path fill-rule="evenodd"  fill="rgb(16, 54, 101)"
+ d="M2.500,0.000 L431.500,0.000 L431.500,0.1000 L2.500,0.1000 L2.500,0.000 Z"/>
+<path fill-rule="evenodd"  fill="rgb(16, 54, 101)"
+ d="M2.500,41.000 L431.500,41.000 L431.500,42.000 L2.500,42.000 L2.500,41.000 Z"/>
+<path fill-rule="evenodd"  fill="rgb(50, 129, 226)"
+ d="M2.500,42.000 L2.500,41.000 L6.500,41.000 L6.500,42.000 L2.500,42.000 ZM2.500,0.000 L6.500,0.000 L6.500,0.1000 L2.500,0.1000 L2.500,0.000 Z"/>
+<path fill-rule="evenodd"  fill="rgb(50, 129, 226)"
+ d="M427.500,42.000 L427.500,41.000 L431.500,41.000 L431.500,42.000 L427.500,42.000 ZM427.500,0.000 L431.500,0.000 L431.500,0.1000 L427.500,0.1000 L427.500,0.000 Z"/>
+<g filter="url(#Filter_0)">
+<path fill-rule="evenodd"  stroke="rgb(73, 163, 255)" stroke-width="1px" stroke-linecap="round" stroke-linejoin="round" fill-opacity="0.2" fill="rgb(73, 163, 255)"
+ d="M11.500,12.515 L19.985,20.1000 L11.500,29.485 L3.015,20.1000 L11.500,12.515 Z"/>
+</g>
+<g filter="url(#Filter_1)">
+<path fill-rule="evenodd"  fill="rgb(73, 163, 255)"
+ d="M11.500,18.005 L14.495,20.1000 L11.500,23.995 L8.505,20.1000 L11.500,18.005 Z"/>
+</g>
+<path fill-rule="evenodd"  fill="rgb(34, 132, 194)"
+ d="M400.344,15.343 L405.844,21.000 L400.344,26.657 L394.843,21.000 L400.344,15.343 Z"/>
+<path fill-rule="evenodd"  fill="rgb(34, 166, 194)"
+ d="M420.344,15.343 L425.844,21.000 L420.344,26.657 L414.843,21.000 L420.344,15.343 Z"/>
+</svg>

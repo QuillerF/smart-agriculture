@@ -1,0 +1,33 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  /* font-size: 100px; */
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --van-tabs-bottom-bar-color: var(--van-primary-color);
+  --van-nav-bar-background-color: transparent !important;
+  --van-dropdown-menu-background-color: transparent !important;
+  --van-dropdown-menu-title-text-color: #fff !important;
+  --van-dropdown-menu-title-active-text-color: #fff !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 375px;
+  min-height: 100vh;
+  background: #fff;
+}
+
+#app {
+  box-sizing: border-box;
+}

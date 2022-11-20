@@ -1,0 +1,8 @@
+{
+  "map": false,
+  "plugins": {
+    "postcss-px-to-viewport": {
+      "viewportWidth": 1920
+    }
+  }
+}
