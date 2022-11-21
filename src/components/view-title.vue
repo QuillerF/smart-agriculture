@@ -11,7 +11,7 @@ import borderLeft from '@/assets/svg/border-left.svg?component'
 import borderRight from '@/assets/svg/border-right.svg?component'
 withDefaults(
   defineProps<{
-    title: string
+    title?: string
   }>(),
   {
     title: ''

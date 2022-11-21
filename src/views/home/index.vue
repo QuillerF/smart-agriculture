@@ -6,6 +6,7 @@
         <section class="home-main-left">
           <proportion-crops></proportion-crops>
           <revenue-growth></revenue-growth>
+          <operation-progress></operation-progress>
         </section>
         <section class="home-main-center"></section>
         <section class="home-main-right"></section>

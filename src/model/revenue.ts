@@ -67,21 +67,15 @@ export const Option = {
       label: {
         show: false,
         position: 'top',
-        textStyle: {
-          color: '#ffffff'
-        }
+        color: '#ffffff'
       },
       itemStyle: {
-        normal: {
-          color(params: { dataIndex: number }) {
-            let colorList = [['#fdc81e', 'transparent']]
-            let index = 0
-            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: colorList[index][0] },
-              // { offset: 0.5, color: colorList[index][0] },
-              { offset: 1, color: colorList[index][1] }
-            ])
-          }
+        color(params: { dataIndex: number }) {
+          const colorList = ['#fdc81e', 'transparent']
+          return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: colorList[0] },
+            { offset: 1, color: colorList[1] }
+          ])
         }
       }
     },
@@ -96,21 +90,15 @@ export const Option = {
         show: true,
         formatter: '+{c}%',
         position: 'top',
-        textStyle: {
-          color: '#ffffff'
-        }
+        color: '#ffffff'
       },
       itemStyle: {
-        normal: {
-          color(params: { dataIndex: number }) {
-            let colorList = [['#22c6fc', 'transparent']]
-            let index = 0
-            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: colorList[index][0] },
-              // { offset: 0.5, color: colorList[index][0] },
-              { offset: 1, color: colorList[index][1] }
-            ])
-          }
+        color() {
+          const colorList = ['#22c6fc', 'transparent']
+          return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: colorList[0] },
+            { offset: 1, color: colorList[1] }
+          ])
         }
       }
     }

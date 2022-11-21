@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     ElCol: typeof import('element-plus/es')['ElCol']
     ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
+    OperationProgress: typeof import('./components/operation-progress.vue')['default']
     ProportionCrops: typeof import('./components/proportion-crops.vue')['default']
     RevenueGrowth: typeof import('./components/revenue-growth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

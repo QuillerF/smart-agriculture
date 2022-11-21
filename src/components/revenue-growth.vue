@@ -12,6 +12,6 @@ const option = ref(Option)
 
 <style scoped lang="less">
 .chart {
-  height: 295px;
+  height: 290px;
 }
 </style>
