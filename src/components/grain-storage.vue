@@ -1,0 +1,33 @@
+<template>
+  <div class="card">
+    <view-title>粮食仓储监测</view-title>
+    <v-chart class="chart" :option="option" />
+    <img class="border" :src="pieStorage" alt="" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import pieStorage from '@/assets/img/percent-bg.png'
+import { Option } from '@/model/grain'
+
+const option = ref(Option)
+</script>
+
+<style scoped lang="less">
+.card {
+  position: relative;
+}
+
+.chart {
+  height: 507px;
+  position: relative;
+  z-index: 1;
+}
+.border {
+  position: absolute;
+  transform: translate(-50%);
+  top: 104px;
+  left: 50%;
+  z-index: 0;
+}
+</style>

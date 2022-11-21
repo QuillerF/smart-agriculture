@@ -9,7 +9,9 @@
           <operation-progress></operation-progress>
         </section>
         <section class="home-main-center"></section>
-        <section class="home-main-right"></section>
+        <section class="home-main-right">
+          <grain-storage></grain-storage>
+        </section>
       </main>
     </div>
   </dv-full-screen-container>
