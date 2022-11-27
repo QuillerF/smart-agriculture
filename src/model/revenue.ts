@@ -12,7 +12,7 @@ export const Option = {
     right: 37,
     top: 22
   },
-  grid: { right: 5 },
+  grid: { right: 5, left: 20, bottom: 40 },
   tooltip: {},
   xAxis: {
     type: 'category',

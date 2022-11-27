@@ -2,13 +2,14 @@
   <div class="card">
     <view-title>粮食仓储监测</view-title>
     <v-chart class="chart" :option="option" />
+    <v-chart class="chart-store" :option="optionStore" />
     <img class="border" :src="pieStorage" alt="" />
   </div>
 </template>
 
 <script setup lang="ts">
 import pieStorage from '@/assets/img/percent-bg.png'
-import { Option } from '@/model/grain'
+import { Option, optionStore } from '@/model/grain'
 
 const option = ref(Option)
 </script>
@@ -19,8 +20,14 @@ const option = ref(Option)
 }
 
 .chart {
-  height: 507px;
+  height: 200px;
   position: relative;
+  z-index: 1;
+}
+.chart-store {
+  height: 300px;
+  position: relative;
+  margin-top: 20px;
   z-index: 1;
 }
 .border {

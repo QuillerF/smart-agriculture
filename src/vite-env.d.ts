@@ -30,4 +30,5 @@ declare interface ImportMeta {
 
 declare interface Window {
   // extend the window
+  BMapGL: any
 }

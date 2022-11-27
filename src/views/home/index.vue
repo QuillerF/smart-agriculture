@@ -8,9 +8,14 @@
           <revenue-growth></revenue-growth>
           <operation-progress></operation-progress>
         </section>
-        <section class="home-main-center"></section>
+        <section class="home-main-center">
+          <over-view></over-view>
+          <main-map @open="openBlockView"></main-map>
+          <block-map-view ref="target" v-show="isShowBlock" class="block-map"></block-map-view>
+        </section>
         <section class="home-main-right">
           <grain-storage></grain-storage>
+          <output-statistics></output-statistics>
         </section>
       </main>
     </div>
@@ -18,9 +23,17 @@
 </template>
 
 <script setup lang="ts">
-import { NavList } from '@/model/home'
-const navList = ref(NavList)
-const active = ref(1)
+const isShowBlock = ref(false)
+
+const openBlockView = () => {
+  isShowBlock.value = true
+}
+
+const target = templateRef<HTMLElement>('target', null)
+
+onClickOutside(target, (event) => {
+  isShowBlock.value = false
+})
 </script>
 
 <style scoped lang="less">
@@ -29,6 +42,7 @@ const active = ref(1)
 }
 .home {
   background-color: #020a25;
+  width: 100%;
   height: 100%;
   position: relative;
   padding-top: 87px;
@@ -49,12 +63,22 @@ const active = ref(1)
     grid-template-columns: 470px 1fr 470px;
     grid-gap: 20px;
     padding: 0px 20px 20px;
-    height: 100%;
+    height: calc(100% - 20px);
     z-index: 1;
     &-left,
     &-right {
       background-color: #030f30;
       padding: 20px;
+      padding-bottom: 0;
+    }
+    &-center {
+      position: relative;
+      .block-map {
+        position: absolute;
+        top: 112px;
+        left: 0;
+        z-index: 50;
+      }
     }
   }
 }

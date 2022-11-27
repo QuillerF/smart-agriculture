@@ -7,12 +7,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BlockMap: typeof import('./components/block-map.vue')['default']
+    BlockMapView: typeof import('./components/block-map-view.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
     GrainStorage: typeof import('./components/grain-storage.vue')['default']
+    LineView: typeof import('./components/line-view.vue')['default']
+    MainMap: typeof import('./components/main-map.vue')['default']
     OperationProgress: typeof import('./components/operation-progress.vue')['default']
+    OutputStatistics: typeof import('./components/output-statistics.vue')['default']
+    OverView: typeof import('./components/over-view.vue')['default']
     ProportionCrops: typeof import('./components/proportion-crops.vue')['default']
     RevenueGrowth: typeof import('./components/revenue-growth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
