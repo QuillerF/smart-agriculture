@@ -13,27 +13,36 @@ const option = ref(Option)
 
 const emit = defineEmits(['open'])
 
+const toLocalMap = async (data: { name: string }) => {
+  if (data.name && provinceMap[data.name]) {
+    if (!echarts.getMap(provinceMap[data.name])) {
+      const json = await import(`@/assets/province/${provinceMap[data.name]}.json`)
+      json && echarts.registerMap(provinceMap[data.name], json as any)
+    }
+    option.value.geo.map = provinceMap[data.name]
+    option.value.geo.center = geoCoordMap[data.name]
+    option.value.series[0].data = data.name === '河南' ? henanList : []
+  }
+}
+
 const handleClick = async (data: any) => {
   console.log('clickdata', data)
   if (data.componentSubType === 'scatter') {
+    if (provinceMap[data.name]) {
+      toLocalMap(data)
+      return
+    }
     emit('open', data)
   }
   if (data.componentType === 'geo') {
-    const json = await import(`@/assets/province/${provinceMap[data.name]}.json`)
-    if (json) {
-      if (!echarts.getMap(provinceMap[data.name])) {
-        echarts.registerMap(provinceMap[data.name], json as any)
-      }
-      option.value.geo.map = provinceMap[data.name]
-      // option.value.geo.center = geoCoordMap[data.name]
-      option.value.series[0].data = data.name === '河南' ? henanList : []
-    }
+    toLocalMap(data)
   }
 }
 
 const handleDblclick = (data: any) => {
   // console.log('clickdata', data)
   option.value.geo.map = 'china'
+  option.value.geo.center = geoCoordMap['陕西']
   option.value.series[0].data = initMarkerData
 }
 </script>

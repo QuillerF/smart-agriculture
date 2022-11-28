@@ -141,6 +141,7 @@ export const Option = {
   },
   geo: {
     map: 'china',
+    center: geoCoordMap['陕西'],
     zoom: 1.15,
     top: '10%',
     label: {
