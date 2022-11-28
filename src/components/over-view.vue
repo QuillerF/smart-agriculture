@@ -4,6 +4,7 @@
       <img :src="planArea" alt="" />
       <div>
         <section class="over-item-title">计划总亩数</section>
+        <!-- <dv-digital-flop :config="config1" /> -->
         <section class="over-item-num blue">
           <span>4000000000</span>
           <span class="unit">亩</span>
@@ -37,6 +38,11 @@
 import currentArea from '@/assets/img/current-area.png'
 import greenArea from '@/assets/img/green-area.png'
 import planArea from '@/assets/img/plan-area.png'
+
+const config1 = reactive({
+  number: [4000000000],
+  content: '{nt}亩'
+})
 </script>
 
 <style lang="less" scoped>

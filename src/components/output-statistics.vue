@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <view-title>产量统计</view-title>
+    <view-title>{{ title }}</view-title>
     <div class="card-list">
       <dv-scroll-board :config="config" style="height: 330px" />
     </div>
@@ -8,27 +8,17 @@
 </template>
 
 <script setup lang="ts">
-const config = reactive({
-  header: ['年份', '产量(吨)', '地区'],
-  rowNum: 7,
-  headerBGC: '#132239',
-  headerHeight: 42,
-  oddRowBGC: 'transparent',
-  evenRowBGC: '#0d1838',
-  index: false,
-  align: ['left', 'center', 'center'],
-  data: [
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南'],
-    ['2022-06-07', '160450', '河南']
-  ]
+import { tableProjectData, tableData } from '@/model/output'
+const props = withDefaults(defineProps<{ target: 'home' | 'project' }>(), {
+  target: 'home'
+})
+const title = computed(() => (props.target === 'home' ? '产量统计' : '预警通知'))
+
+const config = reactiveComputed(() => {
+  if (props.target === 'home') {
+    return tableData
+  }
+  return tableProjectData
 })
 </script>
 

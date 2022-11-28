@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <view-title>作业进度比</view-title>
+    <view-title>{{ title }}</view-title>
     <v-chart class="chart" :option="option" />
     <pie-border class="border"></pie-border>
   </div>
@@ -9,6 +9,12 @@
 <script setup lang="ts">
 import pieBorder from '@/assets/svg/pie-border.svg?component'
 import { Option } from '@/model/operation'
+
+const props = withDefaults(defineProps<{ target: 'home' | 'project' }>(), {
+  target: 'home'
+})
+const title = computed(() => (props.target === 'home' ? '作业进度比' : '收割进度'))
+
 const option = ref(Option)
 </script>
 

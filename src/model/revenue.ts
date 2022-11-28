@@ -1,4 +1,7 @@
 import * as echarts from 'echarts'
+
+import { cloneDeep } from 'lodash'
+
 export const Option = {
   color: ['#1C86F1'],
   backgroundColor: '#030f30',
@@ -104,3 +107,9 @@ export const Option = {
     }
   ]
 }
+
+export const projectOption = cloneDeep(Option)
+
+projectOption.xAxis.data = ['2019', '2020', '2021', '2022']
+projectOption.series[0].name = '小麦'
+projectOption.series[1].name = '玉米'

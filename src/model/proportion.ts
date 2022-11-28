@@ -54,7 +54,7 @@ export class OptionItem {
   }
 
   label = {
-    formatter: ['{t|小麦种植}', '{a|50}{t|%}'].join('\n'),
+    formatter: ['{t|a}', '{a|50}{t|%}'].join('\n'),
     rich: {
       verticalAlign: 'bottom',
       t: {
@@ -90,13 +90,17 @@ export class OptionItem {
     color1,
     color2,
     center,
-    value = 0
+    value = {
+      value: 0.5,
+      unit: '亩',
+      real: 500000
+    }
   }: {
     name: string
     color1: string
     color2: string
     center: string[]
-    value: number
+    value: any
   }) {
     this.name = name
     this.color[0].colorStops = [
@@ -110,8 +114,8 @@ export class OptionItem {
       }
     ]
     this.center = center
-    this.data = [value, value]
-    this.label.formatter = [`{t|${name}}`, `{a|${value * 100}}{t|%}`].join('\n')
+    this.data = [value.value, value.value]
+    this.label.formatter = [`{t|${name}}`, `{a|${value.real}}{t|${value.unit}}`].join('\n')
     this.label.rich.a.color = color2
   }
 }
@@ -122,27 +126,90 @@ export const OptionItemParam = [
     color1: '#fa8a21',
     color2: '#fff231',
     center: ['15%', '25%'],
-    value: 0.5
+    value: {
+      value: 0.5,
+      unit: '%',
+      real: 50
+    }
   },
   {
     name: '水稻种植',
     color1: '#32d5f7',
     color2: '#30d0fd',
     center: ['65%', '25%'],
-    value: 0.5
+    value: {
+      value: 0.5,
+      unit: '%',
+      real: 50
+    }
   },
   {
     name: '玉米种植',
     color1: '#30eea2',
     color2: '#2bddba',
     center: ['15%', '75%'],
-    value: 0.5
+    value: {
+      value: 0.5,
+      unit: '%',
+      real: 50
+    }
   },
   {
     name: '其他种植',
     color1: '#e726f1',
     color2: '#e82cf8',
     center: ['65%', '75%'],
-    value: 0.5
+    value: {
+      value: 0.5,
+      unit: '%',
+      real: 50
+    }
+  }
+]
+
+export const OptionItemProjectParam = [
+  {
+    name: '惠安街道',
+    color1: '#fa8a21',
+    color2: '#fff231',
+    center: ['15%', '25%'],
+    value: {
+      value: 0.5,
+      unit: '亩',
+      real: 500000
+    }
+  },
+  {
+    name: '红庙镇',
+    color1: '#32d5f7',
+    color2: '#30d0fd',
+    center: ['65%', '25%'],
+    value: {
+      value: 0.5,
+      unit: '亩',
+      real: 500000
+    }
+  },
+  {
+    name: '葡萄架乡、闫楼乡',
+    color1: '#30eea2',
+    color2: '#2bddba',
+    center: ['15%', '75%'],
+    value: {
+      value: 0.5,
+      unit: '亩',
+      real: 500000
+    }
+  },
+  {
+    name: '红庙北村',
+    color1: '#e726f1',
+    color2: '#e82cf8',
+    center: ['65%', '75%'],
+    value: {
+      value: 0.5,
+      unit: '亩',
+      real: 500000
+    }
   }
 ]

@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { Option } from '@/model/block-map'
+import { maxBy, minBy } from 'lodash'
 import lntLatJson from '@/assets/block.json'
 
 const chart = templateRef<HTMLElement>('chart', null)
@@ -17,15 +17,16 @@ const initMap = () => {
   let Bmap = window.BMapGL
   let map = new Bmap.Map(chart.value, { backgroundColor: [4, 22, 78, 100] })
   map.enableScrollWheelZoom(true)
-  // 隐藏室内图
+  // 隐藏标注
   map.setDisplayOptions({
     poi: false
   })
+  // 设置中心点
+  const centerLng = ((maxBy(lntLatJson, 'lng')?.lng || 0) + (minBy(lntLatJson, 'lng')?.lng || 0)) / 2
+  const centerLat = ((maxBy(lntLatJson, 'lat')?.lat || 0) + (minBy(lntLatJson, 'lat')?.lat || 0)) / 2
+  map.centerAndZoom(new Bmap.Point(centerLng, centerLat), 14)
 
-  const mapStyle = { features: ['road', 'building', 'water', 'land'] }
-  // map.setMapStyle(mapStyle)
-
-  map.centerAndZoom(new Bmap.Point(113.6166, 34.803161), 14)
+  // 画线和区域掩膜
   const polygon = new Bmap.Polygon(
     lntLatJson.map((el) => new Bmap.Point(el.lng, el.lat)),
     { strokeColor: '#031042', strokeWeight: 2, strokeOpacity: 0.5, fillColor: '#64a800' }

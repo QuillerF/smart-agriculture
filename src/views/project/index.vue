@@ -4,18 +4,17 @@
       <header class="home-header"></header>
       <main class="home-main">
         <section class="home-main-left">
-          <proportion-crops></proportion-crops>
-          <revenue-growth></revenue-growth>
-          <operation-progress></operation-progress>
+          <proportion-crops target="project"></proportion-crops>
+          <revenue-growth target="project"></revenue-growth>
+          <operation-progress target="project"></operation-progress>
         </section>
         <section class="home-main-center">
           <over-view></over-view>
-          <main-map @open="openBlockView"></main-map>
-          <block-map-view ref="target" v-if="isShowBlock" class="block-map"></block-map-view>
+          <project-map></project-map>
         </section>
         <section class="home-main-right">
-          <grain-storage></grain-storage>
-          <output-statistics></output-statistics>
+          <crop-growth></crop-growth>
+          <output-statistics target="project"></output-statistics>
         </section>
       </main>
     </div>
@@ -24,10 +23,6 @@
 
 <script setup lang="ts">
 const isShowBlock = ref(false)
-
-const openBlockView = () => {
-  isShowBlock.value = true
-}
 
 const target = templateRef<HTMLElement>('target', null)
 

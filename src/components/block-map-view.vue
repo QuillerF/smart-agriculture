@@ -8,8 +8,10 @@
 </template>
 
 <script setup lang="ts">
+const router = useRouter()
+
 const changeProject = () => {
-  console.log('哈哈哈哈哈')
+  router.push('/project')
 }
 </script>
 
