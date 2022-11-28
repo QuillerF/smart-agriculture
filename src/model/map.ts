@@ -5,7 +5,41 @@ import mapMark from '@/assets/img/map-mark.png'
 
 echarts.registerMap('china', chinaJson as any) // 注册可用的地图
 
-const geoCoordMap: Record<string, any> = {
+export const provinceMap: Record<string, any> = {
+  北京: '110000',
+  天津: '120000',
+  河北: '130000',
+  山西: '140000',
+  内蒙古: '150000',
+  辽宁: '210000',
+  吉林: '220000',
+  黑龙江: '230000',
+  上海: '310000',
+  江苏: '320000',
+  浙江: '330000',
+  安徽: '340000',
+  福建: '350000',
+  江西: '360000',
+  山东: '370000',
+  河南: '410000',
+  湖北: '420000',
+  湖南: '430000',
+  广东: '440000',
+  广西: '450000',
+  海南: '460000',
+  重庆: '500000',
+  四川: '510000',
+  贵州: '520000',
+  云南: '530000',
+  西藏: '540000',
+  陕西: '610000',
+  甘肃: '620000',
+  青海: '630000',
+  宁夏: '640000',
+  新疆: '650000'
+}
+
+export const geoCoordMap: Record<string, any> = {
   北京: [116.4, 40.4],
   天津: [117.04, 39.52],
   河北: [115.21, 38.44],
@@ -73,6 +107,26 @@ const list = [
   }
 ]
 
+export const henanList = [
+  {
+    name: '新乡',
+    value: [113.9336, 35.30964],
+    area: 500000
+  },
+  {
+    name: '郑州',
+    value: [113.631419, 34.753439],
+    area: 500000
+  },
+  {
+    name: '洛阳',
+    value: [112.459421, 34.624263],
+    area: 500000
+  }
+]
+
+export const initMarkerData = ConvertData(list)
+
 export const Option = {
   backgroundColor: '#031554',
   title: {
@@ -89,10 +143,10 @@ export const Option = {
     map: 'china',
     zoom: 1.15,
     top: '10%',
-    // left:'52%',
     label: {
       emphasis: {
-        show: false
+        show: true,
+        color: '#37fdff'
       }
     },
     roam: true,
@@ -160,7 +214,7 @@ export const Option = {
           color: '#D8BC37' // 标志颜色
         }
       },
-      data: ConvertData(list),
+      data: initMarkerData,
       showEffectOn: 'render',
       rippleEffect: {
         brushType: 'stroke'

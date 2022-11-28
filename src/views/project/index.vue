@@ -1,24 +1,23 @@
 <template>
-  <dv-full-screen-container>
-    <div class="home">
-      <header class="home-header"></header>
-      <main class="home-main">
-        <section class="home-main-left">
-          <proportion-crops target="project"></proportion-crops>
-          <revenue-growth target="project"></revenue-growth>
-          <operation-progress target="project"></operation-progress>
-        </section>
-        <section class="home-main-center">
-          <over-view></over-view>
-          <project-map></project-map>
-        </section>
-        <section class="home-main-right">
-          <crop-growth></crop-growth>
-          <output-statistics target="project"></output-statistics>
-        </section>
-      </main>
-    </div>
-  </dv-full-screen-container>
+  <!-- <dv-full-screen-container> </dv-full-screen-container> -->
+  <div class="home">
+    <header class="home-header"></header>
+    <main class="home-main">
+      <section class="home-main-left">
+        <proportion-crops target="project"></proportion-crops>
+        <revenue-growth target="project"></revenue-growth>
+        <operation-progress target="project"></operation-progress>
+      </section>
+      <section class="home-main-center">
+        <over-view></over-view>
+        <project-map></project-map>
+      </section>
+      <section class="home-main-right">
+        <crop-growth></crop-growth>
+        <output-statistics target="project"></output-statistics>
+      </section>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,7 +37,7 @@ onClickOutside(target, (event) => {
 .home {
   background-color: #020a25;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   position: relative;
   padding-top: 87px;
   &-header {

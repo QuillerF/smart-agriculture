@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { tableProjectData, tableData } from '@/model/output'
-const props = withDefaults(defineProps<{ target: 'home' | 'project' }>(), {
+const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
 const title = computed(() => (props.target === 'home' ? '产量统计' : '预警通知'))

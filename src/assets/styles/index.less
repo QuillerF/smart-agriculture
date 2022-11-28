@@ -1,1 +1,23 @@
 @import '@/assets/styles/nprogress.less';
+body {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .height30 {
+    margin-top: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #020a25;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #030f30;
+    border: 1px solid #030f30;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #031554;
+    border: 1px solid #031554;
+  }
+}

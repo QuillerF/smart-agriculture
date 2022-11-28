@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { Option, projectOption } from '@/model/revenue'
-const props = withDefaults(defineProps<{ target: 'home' | 'project' }>(), {
+const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
 const title = computed(() => (props.target === 'home' ? '收入增长比' : '价格走势'))

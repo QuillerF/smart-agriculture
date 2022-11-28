@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { OptionItem, OptionItemParam, OptionItemProjectParam } from '@/model/proportion'
 
-const props = withDefaults(defineProps<{ target: 'home' | 'project' }>(), {
+const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
 

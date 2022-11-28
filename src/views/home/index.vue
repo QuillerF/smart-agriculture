@@ -1,25 +1,24 @@
 <template>
-  <dv-full-screen-container>
-    <div class="home">
-      <header class="home-header"></header>
-      <main class="home-main">
-        <section class="home-main-left">
-          <proportion-crops></proportion-crops>
-          <revenue-growth></revenue-growth>
-          <operation-progress></operation-progress>
-        </section>
-        <section class="home-main-center">
-          <over-view></over-view>
-          <main-map @open="openBlockView"></main-map>
-          <block-map-view ref="target" v-if="isShowBlock" class="block-map"></block-map-view>
-        </section>
-        <section class="home-main-right">
-          <grain-storage></grain-storage>
-          <output-statistics></output-statistics>
-        </section>
-      </main>
-    </div>
-  </dv-full-screen-container>
+  <!-- <dv-full-screen-container> </dv-full-screen-container> -->
+  <div class="home">
+    <header class="home-header"></header>
+    <main class="home-main">
+      <section class="home-main-left">
+        <proportion-crops></proportion-crops>
+        <revenue-growth></revenue-growth>
+        <operation-progress></operation-progress>
+      </section>
+      <section class="home-main-center">
+        <over-view></over-view>
+        <main-map @open="openBlockView"></main-map>
+        <block-map-view ref="target" v-if="isShowBlock" class="block-map"></block-map-view>
+      </section>
+      <section class="home-main-right">
+        <grain-storage></grain-storage>
+        <output-statistics></output-statistics>
+      </section>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -43,7 +42,7 @@ onClickOutside(target, (event) => {
 .home {
   background-color: #020a25;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   position: relative;
   padding-top: 87px;
   &-header {
