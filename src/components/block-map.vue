@@ -49,7 +49,7 @@ const initMap = () => {
   height: 100%;
   background: rgba(6, 14, 44, 0.4) !important;
   background-image: none !important;
-  border: solid 1px #1a7683;
+  border: solid 1px rgba(26, 118, 131, 0.4);
 }
 
 :global(.anchorBL) {

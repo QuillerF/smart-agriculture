@@ -8,11 +8,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  --van-tabs-bottom-bar-color: var(--van-primary-color);
-  --van-nav-bar-background-color: transparent !important;
-  --van-dropdown-menu-background-color: transparent !important;
-  --van-dropdown-menu-title-text-color: #fff !important;
-  --van-dropdown-menu-title-active-text-color: #fff !important;
+  --el-scrollbar-bg-color: #061034;
 }
 
 body {

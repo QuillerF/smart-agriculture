@@ -11,7 +11,7 @@
       <section class="home-main-center">
         <over-view></over-view>
         <main-map @open="openBlockView"></main-map>
-        <block-map-view ref="target" v-if="isShowBlock" class="block-map"></block-map-view>
+        <block-map-view ref="target" class="block-map"></block-map-view>
       </section>
       <section class="home-main-right">
         <grain-storage></grain-storage>
@@ -22,17 +22,13 @@
 </template>
 
 <script setup lang="ts">
-const isShowBlock = ref(false)
+import BlockMapView from '@/components/block-map-view.vue'
+
+const target = templateRef<InstanceType<typeof BlockMapView>>('target', null)
 
 const openBlockView = () => {
-  isShowBlock.value = true
+  target.value.showModal()
 }
-
-const target = templateRef<HTMLElement>('target', null)
-
-onClickOutside(target, (event) => {
-  isShowBlock.value = false
-})
 </script>
 
 <style scoped lang="less">

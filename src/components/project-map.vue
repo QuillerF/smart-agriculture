@@ -4,6 +4,7 @@
       <div ref="chart" class="card-chart-view"></div>
     </div>
     <work-bench class="line"></work-bench>
+    <select-custom class="select"></select-custom>
     <machine-info ref="machine" class="machine-info"></machine-info>
   </div>
 </template>
@@ -118,6 +119,12 @@ const initMap = () => {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 100;
+}
+.select {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   z-index: 100;
 }
 .machine-info {

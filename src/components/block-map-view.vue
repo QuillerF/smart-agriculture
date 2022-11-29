@@ -1,5 +1,6 @@
 <template>
-  <div class="block">
+  <div v-if="isShowBlock" ref="target" class="block">
+    <select-custom class="select" ref="select"></select-custom>
     <section @click="changeProject">
       <block-map></block-map>
       <span class="block-text">惠安街道11666亩</span>
@@ -10,9 +11,32 @@
 <script setup lang="ts">
 const router = useRouter()
 
+const target = templateRef<HTMLElement>('target', null)
+const select = templateRef<HTMLElement>('select', null)
+
+const isShowBlock = ref(false)
+
+onClickOutside(
+  target,
+  (event) => {
+    isShowBlock.value = false
+  },
+  {
+    ignore: [select]
+  }
+)
+
+const showModal = () => {
+  isShowBlock.value = true
+}
+
 const changeProject = () => {
   router.push('/project')
 }
+
+defineExpose({
+  showModal
+})
 </script>
 
 <style scoped lang="less">
@@ -24,6 +48,12 @@ const changeProject = () => {
   padding: 80px;
   height: 700px;
   background: rgba(4, 22, 85, 0.5);
+  position: relative;
+  .select {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
   &-text {
     font-size: 14px;
     line-height: 25px;

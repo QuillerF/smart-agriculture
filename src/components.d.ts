@@ -12,8 +12,10 @@ declare module '@vue/runtime-core' {
     CropGrowth: typeof import('./components/crop-growth.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElOption: typeof import('element-plus/es')['ElOption']
     ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     GrainStorage: typeof import('./components/grain-storage.vue')['default']
     LineView: typeof import('./components/line-view.vue')['default']
     MachineInfo: typeof import('./components/machine-info.vue')['default']
@@ -26,6 +28,7 @@ declare module '@vue/runtime-core' {
     RevenueGrowth: typeof import('./components/revenue-growth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectCustom: typeof import('./components/select-custom.vue')['default']
     ViewTitle: typeof import('./components/view-title.vue')['default']
     WorkBench: typeof import('./components/work-bench.vue')['default']
   }
