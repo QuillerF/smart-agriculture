@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 首页中国地图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-26 16:16:20
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 20:26:36
+-->
 <template>
   <div class="card">
     <v-chart class="chart" :option="option" @click="handleClick" @zr:dblclick="handleDblclick" />
@@ -53,6 +60,7 @@ const showMarker = () => {
 const clearMarker = () => {
   option.value.series[0].data = []
 }
+
 defineExpose({
   showMarker,
   clearMarker

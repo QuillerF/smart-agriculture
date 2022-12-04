@@ -1,3 +1,6 @@
+export const data1 = [1.232, 2.344, 3.658, 1.339, 2.205, 1.181, 2.339, 1.505, 3.681]
+export const data2 = [3.232, 2.344, 1.658, 2.339, 3.205, 4.181, 3.339, 4.505, 5.681]
+
 export const Option = {
   backgroundColor: 'transparent',
   tooltip: {
@@ -12,7 +15,7 @@ export const Option = {
       }
     },
     textStyle: {
-      fontSize: 14,
+      fontSize: 14
       // color: '#e6e6e7'
     },
     formatter: '{b}年<br/> {a0}：{c0}元'
@@ -142,7 +145,7 @@ export const Option = {
           global: false // 缺省为 false
         }
       },
-      data: [1.232, 2.344, 3.658, 1.339, 2.205, 1.181, 4.339, 1.505, 3.681]
+      data: data1 as any
     }
   ]
 }

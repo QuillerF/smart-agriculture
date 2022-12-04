@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 地块显示
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-27 02:36:29
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:14:43
+-->
 <template>
   <div ref="chart" class="chart"></div>
 </template>

@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 设备信息弹窗
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-28 02:56:49
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 21:15:21
+-->
 <template>
   <div v-show="isShow" ref="target" class="machine">
     <h1 class="machine-title">
@@ -8,16 +15,17 @@
     <section class="machine-main">
       <img :src="machineImg" alt="" />
       <ul class="machine-main-right">
-        <li class="machine-main-right-title">
-          <span>设备名称：水肥一体机</span>
-        </li>
+        <li class="machine-main-right-title">设备名称：水肥一体机</li>
         <li>设备状态：正常 供电状态：正常</li>
         <li>水泵状态：正常 水位深度：正常</li>
         <li>设备编号：HNJD-001</li>
         <li>设备Mac：558841895</li>
         <li>网关Mac：558841895</li>
-        <li>远程开关:</li>
-        <li>查看灌溉任务>></li>
+        <li class="machine-main-right-switch">
+          <span> 远程开关: </span>
+          <el-switch v-model="isOpen" class="ml-2" style="--el-switch-on-color: #11ab69" />
+        </li>
+        <li class="machine-main-right-link">查看灌溉任务>></li>
       </ul>
     </section>
   </div>
@@ -29,6 +37,8 @@ import close from '@/assets/svg/close.svg?component'
 import position from '@/assets/svg/position.svg?component'
 
 const isShow = ref(false)
+
+const isOpen = ref(true)
 
 const handleOpen = () => {
   isShow.value = true
@@ -73,18 +83,41 @@ defineExpose({
   &-main {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-gap: 8px;
+    grid-gap: 20px;
     &-right {
       list-style: none;
       margin: 0;
       padding: 0;
-      opacity: 1;
-      & > li {
-        font-size: 12px;
-        line-height: 23px;
-        letter-spacing: 0px;
-        color: #ffffff;
-        opacity: 0.8;
+      color: #7b8092;
+      font-size: 12px;
+      line-height: 23px;
+      letter-spacing: 0px;
+      &-title {
+        color: #fff;
+        position: relative;
+        &::before {
+          content: '';
+          width: 4px;
+          height: 4px;
+          background-color: #25faf3;
+          position: absolute;
+          left: -12px;
+          top: 9px;
+        }
+      }
+      &-switch {
+        color: #fff;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      &-link {
+        cursor: pointer;
+        text-decoration: underline;
+        color: #25faf3;
+        text-align: right;
+        margin-top: 15px;
       }
     }
   }

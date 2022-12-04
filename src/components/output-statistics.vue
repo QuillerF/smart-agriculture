@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 产量统计/ 预警通知 ---- 动态列表组件
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-26 14:49:57
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:17:11
+-->
 <template>
   <div class="card">
     <view-title>{{ title }}</view-title>

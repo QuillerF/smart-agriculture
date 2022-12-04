@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 收入增长比, 价格走势, 叠加条形图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-21 13:28:07
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:19:55
+-->
 <template>
   <div class="card">
     <view-title>{{ title }}</view-title>

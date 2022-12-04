@@ -1,32 +1,71 @@
+<!--
+ * @Descripttion: 工作台组件
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-28 11:37:21
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-05 00:35:58
+-->
 <template>
   <div class="card">
     <view-title>工作台</view-title>
     <div class="chart">
-      <section class="chart-item">
-        <img :src="waterImg" alt="" />
-        <div>灌溉管理</div>
-      </section>
-      <section class="chart-item">
-        <img :src="monitorImg" alt="" />
-        <div>监控管理</div>
-      </section>
-      <section class="chart-item">
-        <img :src="fourImg" alt="" />
-        <div>四情管理</div>
-      </section>
-      <section class="chart-item">
-        <img :src="centerImg" alt="" />
-        <div>控制中心</div>
+      <section
+        v-for="item in workList"
+        :key="item.label"
+        :active="tabId === item.key"
+        class="chart-item"
+        @click="handleClick(item)"
+      >
+        <div :active="tabId === item.key" class="chart-item-img">
+          <img :src="item.img" alt="" />
+        </div>
+        <div>{{ item.label }}</div>
       </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import centerImg from '@/assets/img/manage-center.png'
-import fourImg from '@/assets/img/manage-four.png'
-import monitorImg from '@/assets/img/manage-monitor.png'
-import waterImg from '@/assets/img/manage-water.png'
+import centerImg from '@/assets/img/work-center.png'
+import fourImg from '@/assets/img/work-four.png'
+import watchImg from '@/assets/img/work-watch.png'
+import waterImg from '@/assets/img/work-water.png'
+
+const workList = ref([
+  {
+    label: '灌溉管理',
+    key: 'water',
+    img: waterImg
+  },
+  {
+    label: '监控管理',
+    key: 'watch',
+    img: watchImg
+  },
+  {
+    label: '四情管理',
+    key: 'four',
+    img: fourImg
+  },
+  {
+    label: '控制中心',
+    key: 'center',
+    img: centerImg
+  }
+])
+
+const emit = defineEmits(['change'])
+
+const tabId = ref('water')
+
+const handleClick = ({ key }: { key: string }) => {
+  if (key === 'center') {
+    ElMessage.info('暂无数据')
+    return
+  }
+  tabId.value = key
+  emit('change', key)
+}
 </script>
 
 <style scoped lang="less">
@@ -41,12 +80,29 @@ import waterImg from '@/assets/img/manage-water.png'
   align-items: center;
   justify-content: center;
   &-item {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     grid-gap: 10px;
     align-items: center;
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.6);
+    &[active='true'] {
+      color: #fff;
+    }
+    &-img {
+      width: 82px;
+      height: 82px;
+      background: url('@/assets/img/work-bg.png');
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &[active='true'] {
+        background: url('@/assets/img/work-bg-active.png') !important;
+        background-size: cover !important;
+      }
+    }
   }
 }
 </style>

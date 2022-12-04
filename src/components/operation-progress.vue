@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 作业进度比 ---- 旋转饼图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-21 15:49:05
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:22:45
+-->
 <template>
   <div class="card">
     <view-title>{{ title }}</view-title>

@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 当前作物生长
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-28 11:52:25
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:15:01
+-->
 <template>
   <div class="card">
     <view-title>当前作物生长—成熟期</view-title>

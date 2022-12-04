@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 粮食仓储---- 关系图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-21 19:29:09
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:21:49
+-->
 <template>
   <div class="card">
     <view-title>粮食仓储监测</view-title>

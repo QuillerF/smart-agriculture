@@ -1,18 +1,50 @@
+<!--
+ * @Descripttion:  地块页面的地图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-28 01:05:49
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 22:55:31
+-->
 <template>
   <div class="card">
     <div class="card-chart">
       <div ref="chart" class="card-chart-view"></div>
     </div>
-    <work-bench class="line"></work-bench>
-    <select-custom class="select"></select-custom>
+    <work-bench class="line" @change="changeMarker"></work-bench>
+    <select-custom :options="options" class="select"></select-custom>
     <machine-info ref="machine" class="machine-info"></machine-info>
   </div>
 </template>
 
 <script setup lang="ts">
+import { MachineEnum } from '@/model/project-map'
 import { maxBy, minBy } from 'lodash'
 import lntLatJson from '@/assets/block.json'
 import MachineInfo from './machine-info.vue'
+
+const Bmap = window.BMapGL
+
+const options = ref([
+  {
+    value: 'Option1',
+    label: '惠安街道11666亩'
+  },
+  {
+    value: 'Option2',
+    label: '红庙镇11666亩'
+  },
+  {
+    value: 'Option3',
+    label: '红庙北村11666亩'
+  }
+])
+
+const markersList = [
+  [113.614964, 34.809666],
+  [113.613706, 34.80445],
+  [113.613491, 34.80027],
+  [113.620444, 34.800293]
+]
 
 const chart = templateRef<HTMLElement>('chart', null)
 const machine = templateRef<InstanceType<typeof MachineInfo>>('machine', null)
@@ -23,9 +55,44 @@ onMounted(() => {
   })
 })
 
+const mapData = ref()
+
+const pointData = markersList.map(([lng, lat]) => new Bmap.Point(lng, lat))
+
+const myIcon = new Bmap.Icon('/src/assets/img/marker-machine.png', new Bmap.Size(54, 54), {
+  anchor: new Bmap.Size(10, 25),
+  imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
+})
+
+const markerData = pointData.map((el) => {
+  const marker = new Bmap.Marker(el, { icon: myIcon })
+  marker.id = '001'
+  marker.addEventListener('click', (data: any) => {
+    console.log('marker', data)
+    machine.value.handleOpen()
+  })
+  return marker
+})
+
+const changeMarker = (val: string) => {
+  const icon = MachineEnum[val]
+  const nowIcon = new Bmap.Icon(icon, new Bmap.Size(54, 54), {
+    anchor: new Bmap.Size(10, 25),
+    imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
+  })
+  markerData.forEach((el) => {
+    el.setIcon(nowIcon)
+  })
+}
+
+// const removeMarker = () => {
+//   mapData.value.removeOverlay(markerData.value)
+// }
+
 const initMap = () => {
-  let Bmap = window.BMapGL
+  const Bmap = window.BMapGL
   let map = new Bmap.Map(chart.value, { backgroundColor: [4, 22, 78, 100] })
+  mapData.value = map
   map.enableScrollWheelZoom(true)
   // 隐藏标注
   map.setDisplayOptions({
@@ -69,26 +136,10 @@ const initMap = () => {
     backgroundColor: 'transparent'
   })
 
-  // 添加标记
-  const myIcon = new Bmap.Icon('/src/assets/img//machine.png', new Bmap.Size(54, 54), {
-    // 指定定位位置。
-    // 当标注显示在地图上时，其所指向的地理位置距离图标左上
-    // 角各偏移10像素和25像素。您可以看到在本例中该位置即是
-    // 图标中央下端的尖角位置。
-    anchor: new Bmap.Size(10, 25),
-    // 设置图片偏移。
-    // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您
-    // 需要指定大图的偏移位置，此做法与css sprites技术类似。
-    imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
+  // 添加标记物
+  markerData.forEach((el) => {
+    map.addOverlay(el)
   })
-  // 创建标注对象并添加到地图
-  const marker = new Bmap.Marker(point, { icon: myIcon })
-  marker.id = '001'
-  marker.addEventListener('click', (data: any) => {
-    console.log('marker', data)
-    machine.value.handleOpen()
-  })
-  map.addOverlay(marker)
 }
 </script>
 

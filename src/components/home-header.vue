@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 首页头部
+ * @Author: yuanxiongfeng
+ * @Date: 2022-12-04 18:37:17
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:15:32
+-->
 <template>
   <header class="home-header">
     <section class="home-header-content">

@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 选择器通用组件
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-29 03:00:47
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 20:41:31
+-->
 <template>
   <el-select
     ref="select"
@@ -17,24 +24,35 @@
 
 <script setup lang="ts">
 import selectSvg from '@/assets/svg/select.svg?component'
-import downSvg from '@/assets/svg/down.svg?component'
+
+interface ItemType {
+  value: string
+  label: string
+}
+
+withDefaults(
+  defineProps<{
+    options: ItemType[]
+  }>(),
+  {
+    options: () => [
+      {
+        value: 'Option1',
+        label: '河南-兰考项目'
+      },
+      {
+        value: 'Option2',
+        label: '河南-新乡项目'
+      },
+      {
+        value: 'Option3',
+        label: '河南-郑州项目'
+      }
+    ]
+  }
+)
 
 const value = ref('Option1')
-
-const options = [
-  {
-    value: 'Option1',
-    label: '河南-兰考项目'
-  },
-  {
-    value: 'Option2',
-    label: '河南-新乡项目'
-  },
-  {
-    value: 'Option3',
-    label: '河南-郑州项目'
-  }
-]
 </script>
 
 <style scoped lang="less">

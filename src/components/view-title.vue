@@ -1,8 +1,17 @@
+<!--
+ * @Descripttion: 面板标题通用组件
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-20 21:16:50
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:59:38
+-->
 <template>
   <div class="view-title">
     <border-left></border-left>
     <span class="view-title-text">{{ title }}<slot></slot></span>
-    <border-right></border-right>
+    <slot name="right">
+      <border-right></border-right>
+    </slot>
   </div>
 </template>
 

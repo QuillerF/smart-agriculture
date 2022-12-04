@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 农作物占比分析/种植统计 4个水球图
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-21 01:40:33
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 19:18:59
+-->
 <template>
   <div class="card">
     <view-title>{{ title }}</view-title>

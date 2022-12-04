@@ -1,7 +1,14 @@
+<!--
+ * @Descripttion: 选择地块外部框
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-27 02:37:09
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 20:21:49
+-->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
     <select-custom class="select" ref="select"></select-custom>
-    <section @click="changeProject">
+    <section v-for="item in 4" :key="item" @click="changeProject">
       <block-map></block-map>
       <span class="block-text">惠安街道11666亩</span>
     </section>

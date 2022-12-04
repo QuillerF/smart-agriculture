@@ -1,3 +1,10 @@
+<!--
+ * @Descripttion: 顶部数据
+ * @Author: yuanxiongfeng
+ * @Date: 2022-11-26 15:53:35
+ * @LastEditors: yuanxiongfeng
+ * @LastEditTime: 2022-12-04 23:59:26
+-->
 <template>
   <div class="over">
     <section class="over-item">
@@ -35,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import currentArea from '@/assets/img/current-area.png'
-import greenArea from '@/assets/img/green-area.png'
-import planArea from '@/assets/img/plan-area.png'
+import currentArea from '@/assets/img/area-current.png'
+import greenArea from '@/assets/img/area-green.png'
+import planArea from '@/assets/img/area-plan.png'
 
 const config1 = reactive({
   number: [4000000000],
