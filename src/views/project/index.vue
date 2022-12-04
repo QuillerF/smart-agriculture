@@ -1,7 +1,7 @@
 <template>
   <!-- <dv-full-screen-container> </dv-full-screen-container> -->
   <div class="home">
-    <header class="home-header"></header>
+    <home-header></home-header>
     <main class="home-main">
       <section class="home-main-left">
         <proportion-crops target="project"></proportion-crops>
@@ -40,18 +40,6 @@ onClickOutside(target, (event) => {
   // height: 100%;
   position: relative;
   padding-top: 87px;
-  &-header {
-    background: url('@/assets/img/top.png');
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: center -136px;
-    width: 100%;
-    height: 150px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
   &-main {
     display: grid;
     grid-template-columns: 470px 1fr 470px;

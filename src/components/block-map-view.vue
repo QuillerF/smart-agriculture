@@ -16,10 +16,13 @@ const select = templateRef<HTMLElement>('select', null)
 
 const isShowBlock = ref(false)
 
+const emit = defineEmits(['close'])
+
 onClickOutside(
   target,
   (event) => {
     isShowBlock.value = false
+    emit('close')
   },
   {
     ignore: [select]
@@ -63,6 +66,7 @@ defineExpose({
     width: 100%;
     display: inline-block;
     text-align: center;
+    margin-top: 5px;
   }
 }
 </style>

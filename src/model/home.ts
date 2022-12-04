@@ -1,48 +1,31 @@
-// import ProjectInfo from '@/components/projectInfo.vue'
+import bingbao from '@/assets/svg/weather/bingbao.svg?component'
+import lei from '@/assets/svg/weather/lei.svg?component'
+import qing from '@/assets/svg/weather/qing.svg?component'
+import shachen from '@/assets/svg/weather/shachen.svg?component'
+import wu from '@/assets/svg/weather/wu.svg?component'
+import xue from '@/assets/svg/weather/xue.svg?component'
+import yin from '@/assets/svg/weather/yin.svg?component'
+import yu from '@/assets/svg/weather/yu.svg?component'
+import yun from '@/assets/svg/weather/yun.svg?component'
 
-export const NavList = [
-  {
-    title: '总览',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '能耗统计',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '冷站能效',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '总能耗指标排名',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '环境品质达标率',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '碳排放量',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '告警统计',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '各项目公区节能率',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '数据质量',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '环境品质不达标次数',
-    componentId: 'projectinfo'
-  },
-  {
-    title: '热平衡率达标次数占比',
-    componentId: 'projectinfo'
-  }
-]
+export enum WeeksEnum {
+  '一' = 0,
+  '二',
+  '三',
+  '四',
+  '五',
+  '六',
+  '日'
+}
+
+export const WeatherImgs: Record<string, any> = {
+  bingbao,
+  lei,
+  qing,
+  shachen,
+  wu,
+  xue,
+  yin,
+  yu,
+  yun
+}

@@ -2,7 +2,7 @@ export const Option = {
   backgroundColor: 'transparent',
   tooltip: {
     trigger: 'axis',
-    backgroundColor: 'rgba(31, 36, 41, 0.5)',
+    // backgroundColor: 'rgba(31, 36, 41, 0.5)',
     borderWidth: 0,
     axisPointer: {
       type: 'line',
@@ -13,7 +13,7 @@ export const Option = {
     },
     textStyle: {
       fontSize: 14,
-      color: '#e6e6e7'
+      // color: '#e6e6e7'
     },
     formatter: '{b}年<br/> {a0}：{c0}元'
   },

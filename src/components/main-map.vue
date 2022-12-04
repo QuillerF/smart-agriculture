@@ -45,6 +45,18 @@ const handleDblclick = (data: any) => {
   option.value.geo.center = geoCoordMap['陕西']
   option.value.series[0].data = initMarkerData
 }
+
+const showMarker = () => {
+  option.value.series[0].data = henanList
+}
+
+const clearMarker = () => {
+  option.value.series[0].data = []
+}
+defineExpose({
+  showMarker,
+  clearMarker
+})
 </script>
 
 <style scoped lang="less">

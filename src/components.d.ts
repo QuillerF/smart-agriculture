@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     GrainStorage: typeof import('./components/grain-storage.vue')['default']
+    HomeHeader: typeof import('./components/home-header.vue')['default']
     LineView: typeof import('./components/line-view.vue')['default']
     MachineInfo: typeof import('./components/machine-info.vue')['default']
     MainMap: typeof import('./components/main-map.vue')['default']

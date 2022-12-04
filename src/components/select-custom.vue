@@ -44,6 +44,17 @@ const options = [
   &:hover {
     box-shadow: 0 0 0 1 #0d3b5d !important;
   }
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 8px;
+    background: #44defd;
+    z-index: 100;
+  }
 }
 
 :deep(.el-input__wrapper) {
