@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 14:49:57
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 19:17:11
+ * @LastEditTime: 2022-12-13 00:26:41
 -->
 <template>
   <div class="card">
@@ -16,16 +16,43 @@
 
 <script setup lang="ts">
 import { tableProjectData, tableData } from '@/model/output'
+import useHttpStore from '@/store/http'
+import { Ref } from 'vue'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
+
 const title = computed(() => (props.target === 'home' ? '产量统计' : '预警通知'))
+
+const dataList: Ref<returnItemType[]> = ref([])
 
 const config = reactiveComputed(() => {
   if (props.target === 'home') {
+    tableData.data = dataList.value.map((el) => [el.year, el.weight, el.name])
     return tableData
   }
   return tableProjectData
+})
+
+const { axios, api } = useHttpStore()
+
+interface returnItemType {
+  year: string
+  name: string
+  weight: number
+}
+
+const queryWebProportion = async () => {
+  try {
+    const { data } = await axios.post<{ data: returnItemType[] }>(api.webCounting)
+    dataList.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  queryWebProportion()
 })
 </script>
 

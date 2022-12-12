@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 15:53:35
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 23:59:26
+ * @LastEditTime: 2022-12-12 21:38:53
 -->
 <template>
   <div class="over">
@@ -13,7 +13,7 @@
         <section class="over-item-title">计划总亩数</section>
         <!-- <dv-digital-flop :config="config1" /> -->
         <section class="over-item-num blue">
-          <span>4000000000</span>
+          <span>{{ overItem.plan ?? '--' }}</span>
           <span class="unit">亩</span>
         </section>
       </div>
@@ -23,7 +23,7 @@
       <div>
         <section class="over-item-title">当前亩数</section>
         <section class="over-item-num yellow">
-          <span>620000</span>
+          <span>{{ overItem.current ?? '--' }}</span>
           <span class="unit">亩</span>
         </section>
       </div>
@@ -33,7 +33,7 @@
       <div>
         <section class="over-item-title">年环比增长</section>
         <section class="over-item-num green">
-          <span>400</span>
+          <span>{{ overItem.increase ?? '--' }}</span>
           <span class="unit">%</span>
         </section>
       </div>
@@ -45,10 +45,26 @@
 import currentArea from '@/assets/img/area-current.png'
 import greenArea from '@/assets/img/area-green.png'
 import planArea from '@/assets/img/area-plan.png'
+import useHttpStore from '@/store/http'
+import { Ref } from 'vue'
 
 const config1 = reactive({
   number: [4000000000],
   content: '{nt}亩'
+})
+
+const { axios, api } = useHttpStore()
+
+const overItem: Ref<any> = ref({})
+
+const queryWebTop = async () => {
+  const { data } = await axios.post<{ data: any }>(api.webTop, {}, { apipost_id: '75d9c5' })
+  console.log('====>', data)
+  overItem.value = data
+}
+
+onMounted(() => {
+  queryWebTop()
 })
 </script>
 

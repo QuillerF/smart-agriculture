@@ -1,6 +1,81 @@
-import * as echarts from 'echarts'
+import dayjs from 'dayjs'
 
 import { cloneDeep } from 'lodash'
+
+const Colors = [
+  {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [
+      {
+        offset: 0,
+        color: '#fdc81e' // 0% 处的颜色
+      },
+      {
+        offset: 1,
+        color: 'transparent' // 100% 处的颜色
+      }
+    ],
+    global: false // 缺省为 false
+  },
+  {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [
+      {
+        offset: 0,
+        color: 'transparent' // 0% 处的颜色
+      },
+      {
+        offset: 1,
+        color: '#fdc81e ' // 100% 处的颜色
+      }
+    ],
+    global: false // 缺省为 false
+  },
+  {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [
+      {
+        offset: 0,
+        color: '#22c6fc' // 0% 处的颜色
+      },
+      {
+        offset: 1,
+        color: 'transparent ' // 100% 处的颜色
+      }
+    ],
+    global: false // 缺省为 false
+  },
+  {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [
+      {
+        offset: 0,
+        color: 'transparent' // 0% 处的颜色
+      },
+      {
+        offset: 1,
+        color: '#22c6fc ' // 100% 处的颜色
+      }
+    ],
+    global: false // 缺省为 false
+  }
+]
 
 export const Option = {
   color: ['#1C86F1'],
@@ -15,7 +90,7 @@ export const Option = {
     right: 37,
     top: 22
   },
-  grid: { right: 5, left: 20, bottom: 40 },
+  grid: { right: 5, left: 10, bottom: 40, containLabel: true },
   tooltip: {},
   xAxis: {
     type: 'category',
@@ -36,8 +111,12 @@ export const Option = {
   yAxis: {
     show: true,
     name: '占比(%)',
-    min: 0,
-    max: 100,
+    min(data: { min: number }) {
+      return data.min < 0 ? null : 0
+    },
+    max(data: { max: number }) {
+      return data.max < 30 ? 30 : null
+    },
     nameTextStyle: {
       color: '#eee'
     },
@@ -61,34 +140,30 @@ export const Option = {
   },
   series: [
     {
-      name: '2021年',
+      name: `${dayjs().get('year') - 1}年`,
       stack: 'year',
       type: 'bar',
       color: '#fdc81e',
       barWidth: 15,
-      data: [30, 40, 20, 15, 14],
+      data: [] as any,
       label: {
         show: false,
         position: 'top',
         color: '#ffffff'
       },
       itemStyle: {
-        color(params: { dataIndex: number }) {
-          const colorList = ['#fdc81e', 'transparent']
-          return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: colorList[0] },
-            { offset: 1, color: colorList[1] }
-          ])
+        color(params: { value: number }) {
+          return params.value < 0 ? Colors[1] : Colors[0]
         }
       }
     },
     {
-      name: '2022年',
+      name: `${dayjs().get('year')}年`,
       stack: 'year',
       color: '#22c6fc',
       type: 'bar',
       barWidth: 15,
-      data: [10, 20, 15, 14, 15],
+      data: [] as any,
       label: {
         show: true,
         formatter: '+{c}%',
@@ -96,20 +171,16 @@ export const Option = {
         color: '#ffffff'
       },
       itemStyle: {
-        color() {
-          const colorList = ['#22c6fc', 'transparent']
-          return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: colorList[0] },
-            { offset: 1, color: colorList[1] }
-          ])
+        color(params: { value: number }) {
+          return params.value < 0 ? Colors[3] : Colors[2]
         }
       }
     }
   ]
 }
 
-export const projectOption = cloneDeep(Option)
+export const ProjectOption = cloneDeep(Option)
 
-projectOption.xAxis.data = ['2019', '2020', '2021', '2022']
-projectOption.series[0].name = '小麦'
-projectOption.series[1].name = '玉米'
+ProjectOption.xAxis.data = ['2019', '2020', '2021', '2022']
+ProjectOption.series[0].name = '小麦'
+ProjectOption.series[1].name = '玉米'

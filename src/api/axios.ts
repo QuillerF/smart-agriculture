@@ -4,6 +4,7 @@ import { formatJsonToUrlParams, instanceObject } from '@/utils/format'
 
 import pinia from '@/store'
 import useSystemStore from '@/store/system'
+import qs from 'qs'
 
 const store = useSystemStore(pinia)
 
@@ -26,21 +27,11 @@ export const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const { project_id } = store
-    const { pd, user_id, person_id } = store.userInfo
+    const { districtId } = store
+    const { user_id } = store.userInfo
     // 公共参数
-    const params = { user_id, pd, person_id, userId: user_id, personId: person_id }
-    Object.assign(params, project_id ? { project_id, projectId: project_id } : {})
-    // 运维系统需要额外的参数
-    if (config.url && config.url.includes('EMS_SaaS_Web')) {
-      Object.assign(params, {
-        puser: {
-          userId: user_id,
-          loginDevice: 'PC',
-          pd
-        }
-      })
-    }
+    const params = { userId: user_id, districtId }
+    Object.assign(params)
     // 合并参数
     if (config.headers?.mergeParams !== false) {
       config.method === 'post'
@@ -83,8 +74,8 @@ export const service = {
     return axiosInstance.get(url, { params: data })
   },
 
-  post<T = ResponseDataType>(url: string, data?: object): Promise<T> {
-    return axiosInstance.post(url, data)
+  post<T = ResponseDataType>(url: string, data?: object, query?: object): Promise<T> {
+    return axiosInstance.post(`${url}${query ? '?' : ''}${qs.stringify(query)}`, data)
   },
 
   put<T = any>(url: string, data?: object): Promise<T> {

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 01:40:33
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 19:18:59
+ * @LastEditTime: 2022-12-12 22:16:30
 -->
 <template>
   <div class="card">
@@ -13,7 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import { optionStore } from '@/model/grain'
 import { OptionItem, OptionItemParam, OptionItemProjectParam } from '@/model/proportion'
+import useHttpStore from '@/store/http'
+import { Ref } from 'vue'
 
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
@@ -23,13 +26,56 @@ const title = computed(() => (props.target === 'home' ? '农作物占比分析' 
 
 const list = computed(() => {
   if (props.target === 'home') {
-    return OptionItemParam.map((el) => new OptionItem(el))
+    return OptionItemParam
   }
-  return OptionItemProjectParam.map((el: any) => new OptionItem(el))
+  return OptionItemProjectParam
 })
 
 const option = ref({
-  series: list.value
+  series: list.value.map((el) => new OptionItem(el))
+})
+
+const { axios, api } = useHttpStore()
+
+interface itemDataType {
+  other: number
+  corn: number
+  wheat: number
+  rice: number
+}
+
+const queryWebProportion = async () => {
+  try {
+    const { data } = await axios.post<{ data: itemDataType }>(api.webProportion, { districtId: '' })
+    const params = list.value.map((el) => {
+      switch (el.name) {
+        case '小麦种植':
+          el.value.value = data.wheat / 100
+          el.value.real = data.wheat
+          break
+        case '水稻种植':
+          el.value.value = data.rice / 100
+          el.value.real = data.rice
+          break
+        case '玉米种植':
+          el.value.value = data.corn / 100
+          el.value.real = data.corn
+          break
+        default:
+          el.value.value = data.other / 100
+          el.value.real = data.other
+          break
+      }
+      return el
+    })
+    option.value.series = params.map((el) => new OptionItem(el))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  queryWebProportion()
 })
 </script>
 

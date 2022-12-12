@@ -12,9 +12,8 @@ import { name } from './package.json'
 
 // 需要代理请求的nginx地址
 const proxyArr = [
-  'http://zsy.cmsk1979.com',
-  'https://energy-sit.cmsk1979.com',
-  'https://mock.apifox.cn/m1/1645334-0-default'
+  'https://console-mock.apipost.cn/mock/1687b7c4-ec1e-4b16-ab7e-b9e85e03300d',
+  'http://118.190.113.210:8090'
 ]
 
 export default defineConfig({
@@ -84,14 +83,10 @@ export default defineConfig({
     cors: true,
     // 接口代理
     proxy: {
-      '/mock': {
-        target: proxyArr[2],
-        changeOrigin: true,
-        rewrite: (path) => path.replace('^/api/meos/mock', '/')
-      },
       '/api': {
-        target: proxyArr[0],
-        changeOrigin: true
+        target: proxyArr[1],
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }

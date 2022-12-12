@@ -1,12 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-// 导入axios模块
-import axios from '@/api/axios'
-
-// 导出 api
-import api from '@/api/api'
-
 // vue router
 import router from '@/router/index'
 
@@ -27,7 +21,5 @@ const app = createApp(App)
 
 app.component('v-chart', ECharts)
 app.use(router).use(store).use(dataV)
-app.config.globalProperties.$axios = axios
-app.config.globalProperties.$api = api
 
 app.mount('#app')
