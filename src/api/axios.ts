@@ -19,7 +19,7 @@ export const axiosInstance: AxiosInstance = axios.create({
   // 请求头
   headers: {
     post: {
-      'Content-Type': 'application/json,charset=utf-8'
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }
 })
@@ -34,7 +34,7 @@ axiosInstance.interceptors.request.use(
     // 合并参数
     if (config.headers?.mergeParams !== false) {
       config.method === 'post'
-        ? (config.data = Object.assign(params, config.data))
+        ? (config.data = `data=${JSON.stringify(Object.assign(params, config.data))}`)
         : (config.params = Object.assign(params, config.params))
     }
     return config
