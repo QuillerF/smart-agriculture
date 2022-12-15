@@ -24,6 +24,15 @@ const asyncRoutes: RouteRecordRaw[] = [
       icon: ''
     },
     component: () => import('@/views/project/index.vue')
+  },
+  {
+    path: '/block',
+    name: 'block',
+    meta: {
+      title: '',
+      icon: ''
+    },
+    component: () => import('@/views/block/index.vue')
   }
 ]
 

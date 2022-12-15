@@ -1,11 +1,11 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-svg-loader" />
-import type { Api } from '@/api/api'
 
 // 声明自动引入的 vue 组件
 declare module '*.vue' {
   import { DefineComponent } from 'vue'
-  const component: DefineComponent<{ $api: Api }>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+  const component: DefineComponent<{}, {}, any>
   export default component
 }
 

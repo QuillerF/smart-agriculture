@@ -72,40 +72,24 @@ export const geoCoordMap: Record<string, any> = {
   宁夏: [106.27, 36.76],
   新疆: [86.61, 40.79]
 }
+export interface returnItemType {
+  id: string
+  name: string
+  area: number
+  lng: string
+  lat: string
+  value: string[]
+  standbyValue: string[]
+}
 
-export const ConvertData = (list: { name: any; area: any }[]) =>
-  list.map(({ name, area }) => ({
+export const ConvertData = (list: returnItemType[]) =>
+  list.map(({ name, area, lng, lat, id }) => ({
+    id,
     name,
     area,
-    value: geoCoordMap[name]
+    value: [lng, lat],
+    standbyValue: geoCoordMap[name.slice(0, -1)]
   }))
-
-const list = [
-  {
-    name: '河南',
-    area: 500000
-  },
-  {
-    name: '山东',
-    area: 500000
-  },
-  {
-    name: '黑龙江',
-    area: 500000
-  },
-  {
-    name: '新疆',
-    area: 500000
-  },
-  {
-    name: '江西',
-    area: 500000
-  },
-  {
-    name: '广西',
-    area: 500000
-  }
-]
 
 export const henanList = [
   {
@@ -124,8 +108,6 @@ export const henanList = [
     area: 500000
   }
 ]
-
-export const initMarkerData = ConvertData(list)
 
 export const Option = {
   backgroundColor: '#031554',
@@ -188,7 +170,7 @@ export const Option = {
             lineHeight: 60
           },
           formatter(params: { data: { area: any; name: any } }) {
-            return `{area|${params.data.area}亩}\n{title|${params.data.name}}`
+            return `{area|${params.data.area.toFixed(0)}亩}\n{title|${params.data.name}}`
           },
           rich: {
             area: {
@@ -215,7 +197,7 @@ export const Option = {
           color: '#D8BC37' // 标志颜色
         }
       },
-      data: initMarkerData,
+      data: [] as any,
       showEffectOn: 'render',
       rippleEffect: {
         brushType: 'stroke'

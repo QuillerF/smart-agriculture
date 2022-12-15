@@ -27,11 +27,10 @@ export const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const { districtId } = store
-    const { user_id } = store.userInfo
+    const { districtId, isProject } = store
+    const { userId } = store.userInfo
     // 公共参数
-    const params = { userId: user_id, districtId }
-    Object.assign(params)
+    const params = {}
     // 合并参数
     if (config.headers?.mergeParams !== false) {
       config.method === 'post'

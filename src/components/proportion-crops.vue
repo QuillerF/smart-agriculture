@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 01:40:33
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-12 22:16:30
+ * @LastEditTime: 2022-12-15 00:02:28
 -->
 <template>
   <div class="card">
@@ -13,8 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { optionStore } from '@/model/grain'
-import { OptionItem, OptionItemParam, OptionItemProjectParam } from '@/model/proportion'
+import { OptionItem, OptionItemParam, OptionItemProjectParam } from '@/model/proportion-crops'
 import useHttpStore from '@/store/http'
 import { Ref } from 'vue'
 
@@ -46,7 +45,7 @@ interface itemDataType {
 
 const queryWebProportion = async () => {
   try {
-    const { data } = await axios.post<{ data: itemDataType }>(api.webProportion, { districtId: '' })
+    const { data } = await axios.post<{ data: itemDataType }>(api.webProportion)
     const params = list.value.map((el) => {
       switch (el.name) {
         case '小麦种植':

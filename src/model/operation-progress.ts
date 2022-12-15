@@ -22,6 +22,7 @@ let colors = [
     }
   ])
 ]
+
 let datas = [
   { name: '未完成', value: 15 },
   { name: '已完成', value: 85 }
@@ -48,7 +49,7 @@ export const Option = {
   series: [
     {
       type: 'pie',
-      startAngle: 0,
+      startAngle: -45,
       center: ['50%', '50%'],
       radius: [60, 80],
       itemStyle: {

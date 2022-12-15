@@ -36,19 +36,29 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.isException) {
     return next()
   }
+  if (to.name === 'home') {
+    store.changeIsProject(false)
+  }
+  if (to.name === 'project') {
+    store.changeIsProject(true)
+  }
+
   // 设置页面标题
   document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE
   if (!NProgress.isStarted()) {
     NProgress.start()
   }
-  const { user_id } = store.userInfo
-  if (user_id) {
+  const districtId = sessionStorage.getItem('districtId')
+  if (districtId) {
+    const provinceData = JSON.parse(sessionStorage.getItem('provinceData') || '{}')
+    store.changeDistrictId(districtId)
+    store.changeProvinceData(provinceData)
+  }
+  const { userId } = store.userInfo
+  if (userId) {
     return next()
   }
-  const { loginName, project_id = '' } = to.query
-  if (project_id) {
-    store.changeProjectId(project_id as string)
-  }
+  const { loginName } = to.query
   if (!loginName) {
     // return next('/401')
   }
@@ -75,11 +85,17 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach((to, from) => {
   console.log('全局路由后置守卫：to,from\n', to, from)
   NProgress.done()
-  // 需要添加面包屑信息
-  if (to.meta?.title) {
-    const { meta, params, path, query } = to
-    store.changeBreadcrumb({ name: meta.title, params, query, path })
-  }
+})
+
+// pinia持久化
+window.addEventListener('unload', () => {
+  sessionStorage.setItem('userInfo', JSON.stringify(store.userInfo))
+  sessionStorage.setItem('districtId', store.districtId)
+  sessionStorage.setItem('provinceData', JSON.stringify(store.provinceData))
+})
+// 删除敏感信息
+window.addEventListener('load', () => {
+  sessionStorage.removeItem('userInfo')
 })
 
 export default router

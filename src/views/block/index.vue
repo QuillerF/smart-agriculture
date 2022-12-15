@@ -3,46 +3,29 @@
     <home-header></home-header>
     <main class="home-main">
       <section class="home-main-left">
-        <proportion-crops></proportion-crops>
-        <revenue-growth></revenue-growth>
-        <operation-progress></operation-progress>
+        <proportion-crops target="project"></proportion-crops>
+        <revenue-growth target="project"></revenue-growth>
+        <operation-progress target="project"></operation-progress>
       </section>
       <section class="home-main-center">
         <over-view></over-view>
-        <main-map ref="map"></main-map>
-        <project-map-view ref="target" class="block-map"></project-map-view>
+        <block-map></block-map>
       </section>
       <section class="home-main-right">
-        <grain-storage></grain-storage>
-        <output-statistics></output-statistics>
+        <crop-growth></crop-growth>
+        <output-statistics target="project"></output-statistics>
       </section>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import ProjectMapView from '@/components/project-map-view.vue'
-import MainMap from '@/components/main-map.vue'
-import useSystemStore from '@/store/system'
+const isShowBlock = ref(false)
 
-const map = templateRef<InstanceType<typeof MainMap>>('map', null)
-const target = templateRef<InstanceType<typeof ProjectMapView>>('target', null)
+const target = templateRef<HTMLElement>('target', null)
 
-const openBlockView = () => {
-  map.value.clearMarker()
-  target.value.showModal()
-}
-
-const showMarker = () => {
-  map.value.showMarker()
-}
-
-const store = useSystemStore()
-onMounted(() => {
-  if (store.isProject) {
-    openBlockView()
-    map.value.clearMarker()
-  }
+onClickOutside(target, (event) => {
+  isShowBlock.value = false
 })
 </script>
 

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 20:26:36
+ * @LastEditTime: 2022-12-14 23:53:35
 -->
 <template>
   <div class="card">
@@ -13,33 +13,47 @@
 </template>
 
 <script setup lang="ts">
-import { Option, geoCoordMap, provinceMap, henanList, initMarkerData } from '@/model/map'
+import { Option, geoCoordMap, provinceMap, ConvertData, returnItemType } from '@/model/main-map'
+import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 import * as echarts from 'echarts'
+import { Ref } from 'vue'
 
 const option = ref(Option)
 
 const emit = defineEmits(['open'])
 
-const toLocalMap = async (data: { name: string }) => {
-  if (data.name && provinceMap[data.name]) {
-    if (!echarts.getMap(provinceMap[data.name])) {
-      const json = await import(`@/assets/province/${provinceMap[data.name]}.json`)
-      json && echarts.registerMap(provinceMap[data.name], json as any)
+const toLocalMap = async (data: { name: string; componentType?: string }) => {
+  const dataName = data.componentType === 'geo' ? data.name : data.name.slice(0, -1)
+  if (data.name && provinceMap[dataName]) {
+    if (!echarts.getMap(provinceMap[dataName])) {
+      const json = await import(`@/assets/province/${provinceMap[dataName]}.json`)
+      json && echarts.registerMap(provinceMap[dataName], json as any)
     }
-    option.value.geo.map = provinceMap[data.name]
-    option.value.geo.center = geoCoordMap[data.name]
-    option.value.series[0].data = data.name === '河南' ? henanList : []
+    option.value.geo.map = provinceMap[dataName]
+    option.value.geo.center = geoCoordMap[dataName]
+    option.value.series[0].data = provinceMarkerData.value
   }
 }
 
+const router = useRouter()
+const store = useSystemStore()
+
+const isProvince = ref(false)
+
 const handleClick = async (data: any) => {
-  console.log('clickdata', data)
+  console.log('clickData', data)
   if (data.componentSubType === 'scatter') {
-    if (provinceMap[data.name]) {
-      toLocalMap(data)
+    if (provinceMap[data.name.slice(0, -1)] && !isProvince.value) {
+      isProvince.value = true
+      store.changeProvinceData(data.data)
+      provinceMarkerData.value = await queryWebHomeLand(data.data.id)
+      toLocalMap(data.data)
       return
     }
-    emit('open', data)
+    store.changeDistrictId(data.data.id)
+    router.push('/project')
+    // emit('open', data)
   }
   if (data.componentType === 'geo') {
     toLocalMap(data)
@@ -47,19 +61,44 @@ const handleClick = async (data: any) => {
 }
 
 const handleDblclick = (data: any) => {
-  // console.log('clickdata', data)
+  isProvince.value = false
   option.value.geo.map = 'china'
   option.value.geo.center = geoCoordMap['陕西']
   option.value.series[0].data = initMarkerData
 }
 
 const showMarker = () => {
-  option.value.series[0].data = henanList
+  option.value.series[0].data = provinceMarkerData
 }
 
 const clearMarker = () => {
   option.value.series[0].data = []
 }
+
+const { axios, api } = useHttpStore()
+
+const initMarkerData: Ref<Partial<returnItemType>[]> = ref([])
+const provinceMarkerData: Ref<Partial<returnItemType>[]> = ref([])
+
+const queryWebHomeLand = async (provinceId: string) => {
+  try {
+    const { data } = await axios.post<{ data: returnItemType[] }>(api.webHomeLand, { provinceId })
+    return ConvertData(data)
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+
+onMounted(async () => {
+  if (store.isProject) {
+    toLocalMap(store.provinceData)
+    option.value.series[0].data = []
+    return
+  }
+  initMarkerData.value = await queryWebHomeLand('')
+  option.value.series[0].data = initMarkerData.value
+})
 
 defineExpose({
   showMarker,

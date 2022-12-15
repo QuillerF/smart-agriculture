@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 14:49:57
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 00:26:41
+ * @LastEditTime: 2022-12-13 21:35:54
 -->
 <template>
   <div class="card">
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { tableProjectData, tableData } from '@/model/output'
+import { tableProjectData, tableData } from '@/model/output-statistics'
 import useHttpStore from '@/store/http'
 import { Ref } from 'vue'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 15:53:35
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-12 21:38:53
+ * @LastEditTime: 2022-12-13 23:01:09
 -->
 <template>
   <div class="over">
@@ -58,7 +58,7 @@ const { axios, api } = useHttpStore()
 const overItem: Ref<any> = ref({})
 
 const queryWebTop = async () => {
-  const { data } = await axios.post<{ data: any }>(api.webTop, {}, { apipost_id: '75d9c5' })
+  const { data } = await axios.post<{ data: any }>(api.webTop, {})
   console.log('====>', data)
   overItem.value = data
 }

@@ -1,3 +1,4 @@
+// 构造器
 export class OptionItem {
   type = 'liquidFill'
 
@@ -27,7 +28,7 @@ export class OptionItem {
     }
   ]
 
-  data = [0.5, 0.5] // data个数代表波浪数
+  data = [0, 0]
 
   backgroundStyle = {
     color: {
@@ -115,10 +116,12 @@ export class OptionItem {
     ]
     this.center = center
     this.data = [value.value, value.value]
-    this.label.formatter = [`{t|${name}}`, `{a|${value.real}}{t|${value.unit}}`].join('\n')
+    this.label.formatter = [`{t|${name}}`, `{a|${value.real ?? '--'}}{t|${value.unit}}`].join('\n')
     this.label.rich.a.color = color2
   }
 }
+
+// 构造参数
 
 export const OptionItemParam = [
   {
@@ -127,9 +130,9 @@ export const OptionItemParam = [
     color2: '#fff231',
     center: ['15%', '25%'],
     value: {
-      value: 0.5,
+      value: 0,
       unit: '%',
-      real: 50
+      real: null
     }
   },
   {
@@ -138,9 +141,9 @@ export const OptionItemParam = [
     color2: '#30d0fd',
     center: ['65%', '25%'],
     value: {
-      value: 0.5,
+      value: 0,
       unit: '%',
-      real: 50
+      real: null
     }
   },
   {
@@ -149,9 +152,9 @@ export const OptionItemParam = [
     color2: '#2bddba',
     center: ['15%', '75%'],
     value: {
-      value: 0.5,
+      value: 0,
       unit: '%',
-      real: 50
+      real: null
     }
   },
   {
@@ -160,9 +163,9 @@ export const OptionItemParam = [
     color2: '#e82cf8',
     center: ['65%', '75%'],
     value: {
-      value: 0.5,
+      value: 0,
       unit: '%',
-      real: 50
+      real: null
     }
   }
 ]

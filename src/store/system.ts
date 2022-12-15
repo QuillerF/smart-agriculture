@@ -3,18 +3,13 @@ import { defineStore } from 'pinia'
 const useSystemStore = defineStore({
   id: 'system',
   state: () => ({
-    userInfo: { pd: '', user_id: '', person_id: '' },
-    authId: [] as string[],
-    districtId: ''
+    userInfo: { userId: '' },
+    districtId: '',
+    provinceData: { id: '', name: '' },
+    isProject: false
   }),
   getters: {
-    hasAuth: (state: any) => (key: string) => {
-      try {
-        return state.authId.includes(key)
-      } catch {
-        return false
-      }
-    }
+    getProvinceId: (state) => state.provinceData.id
   },
   actions: {
     // 修改用户信息
@@ -24,6 +19,14 @@ const useSystemStore = defineStore({
     // 修改districtId
     changeDistrictId(id: string) {
       this.districtId = id
+    },
+    // 修改districtId
+    changeProvinceData(data: any) {
+      this.provinceData = data
+    },
+    // 修改districtId
+    changeIsProject(val: boolean) {
+      this.isProject = val
     }
   }
 })

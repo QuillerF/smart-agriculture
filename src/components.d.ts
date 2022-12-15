@@ -8,10 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BlockMap: typeof import('./components/block-map.vue')['default']
-    BlockMapView: typeof import('./components/block-map-view.vue')['default']
     CropGrowth: typeof import('./components/crop-growth.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -26,6 +27,7 @@ declare module '@vue/runtime-core' {
     OutputStatistics: typeof import('./components/output-statistics.vue')['default']
     OverView: typeof import('./components/over-view.vue')['default']
     ProjectMap: typeof import('./components/project-map.vue')['default']
+    ProjectMapView: typeof import('./components/project-map-view.vue')['default']
     ProportionCrops: typeof import('./components/proportion-crops.vue')['default']
     RevenueGrowth: typeof import('./components/revenue-growth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

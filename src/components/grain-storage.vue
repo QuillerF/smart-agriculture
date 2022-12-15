@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 19:29:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 19:21:49
+ * @LastEditTime: 2022-12-13 22:25:04
 -->
 <template>
   <div class="card">
@@ -16,9 +16,46 @@
 
 <script setup lang="ts">
 import pieStorage from '@/assets/img/percent-bg.png'
-import { Option, optionStore } from '@/model/grain'
+import { Option, OptionStore } from '@/model/grain-storage'
+import useHttpStore from '@/store/http'
 
 const option = ref(Option)
+const optionStore = ref(OptionStore)
+
+const { axios, api } = useHttpStore()
+
+enum statusEnum {
+  '正常' = 1,
+  '异常' = 0
+}
+
+interface returnItemType {
+  store5: number
+  store1: number
+  store2: number
+  store3: number
+  store4: number
+  weight: number
+}
+
+const queryWebStorage = async () => {
+  try {
+    const { data } = await axios.post<{ data: returnItemType }>(api.webStorage, { provinceId: 17 })
+    option.value.series[0].data = [{ name: '存储量', value: data.weight }]
+    optionStore.value.series[1].data = optionStore.value.series[1].data.map(
+      (el: { nodeStatus: string }, index: number) => {
+        el.nodeStatus = statusEnum[data[`store${index + 1}` as keyof returnItemType]]
+        return el
+      }
+    )
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  queryWebStorage()
+})
 </script>
 
 <style scoped lang="less">

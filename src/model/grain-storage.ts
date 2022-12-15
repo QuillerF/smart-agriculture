@@ -2,7 +2,7 @@ import * as echarts from 'echarts'
 
 const dataArr = [
   {
-    value: 91,
+    value: 0,
     name: '存储量'
   }
 ]
@@ -23,7 +23,7 @@ const color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
 ])
 
 const colorSet = [
-  [0.91, color],
+  [1, color],
   [1, '#202e5c']
 ]
 
@@ -83,6 +83,8 @@ export const Option = {
     }
   ]
 }
+
+// 仓储下半部分数据
 import storeItem from '@/assets/img/store-item-bg.png'
 
 let nodes = [
@@ -151,7 +153,7 @@ for (let j = 0; j < nodes.length; j++) {
   charts.nodes.push(node)
 }
 
-export const optionStore = {
+export const OptionStore = {
   backgroundColor: 'transparent',
   xAxis: {
     min: 0,

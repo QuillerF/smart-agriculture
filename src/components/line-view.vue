@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 22:04:24
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 20:19:29
+ * @LastEditTime: 2022-12-13 22:52:35
 -->
 <template>
   <div class="card">
@@ -27,19 +27,49 @@
 </template>
 
 <script setup lang="ts">
-import { Option, data1, data2 } from '@/model/line'
+import { Option } from '@/model/line-view'
 import pointLightSvg from '@/assets/svg/point-light.svg?component'
+import useHttpStore from '@/store/http'
 
 const option = ref(Option)
+
+const data1 = ref([] as returnItemType[])
+const data2 = ref([] as returnItemType[])
 
 const select = ref('小麦')
 
 watch(select, (val) => {
   if (val === '小麦') {
-    option.value.series[0].data = data1
+    option.value.xAxis[0].data = data1.value.map((el) => el.year)
+    option.value.series[0].data = data1.value.map((el) => el.price)
     return
   }
-  option.value.series[0].data = data2
+  option.value.xAxis[0].data = data2.value.map((el) => el.year)
+  option.value.series[0].data = data2.value.map((el) => el.price)
+})
+
+const { axios, api } = useHttpStore()
+
+interface returnItemType {
+  year: string
+  price: number
+}
+
+const queryWebPriceByYear = async (crop: number) => {
+  try {
+    const { data } = await axios.post<{ data: returnItemType[] }>(api.webPriceByYear, { crop })
+    return data
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+
+onMounted(async () => {
+  data1.value = await queryWebPriceByYear(1)
+  data2.value = await queryWebPriceByYear(2)
+  option.value.xAxis[0].data = data1.value.map((el) => el.year)
+  option.value.series[0].data = data1.value.map((el) => el.price)
 })
 </script>
 

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-12-04 18:37:17
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 19:15:32
+ * @LastEditTime: 2022-12-15 01:36:28
 -->
 <template>
   <header class="home-header">
@@ -34,18 +34,18 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import BlockMapView from '@/components/block-map-view.vue'
 import topPosImg from '@/assets/img/top-pos.png'
 import topManagerImg from '@/assets/img/top-manager.png'
 import topCalenderImg from '@/assets/img/top-calender.png'
 import { WeeksEnum, WeatherImgs } from '@/model/home'
 import { Ref } from 'vue'
+import useHttpStore from '@/store/http'
 
 const weather: Ref<any> = ref({})
 
 const getWeatherImg = computed(() => WeatherImgs[(weather.value.wea_img as string) || 'qing'])
 
-const { proxy } = getCurrentInstance() as any
+const { axios, api } = useHttpStore()
 onMounted(() => {
   if (!sessionStorage.getItem('weather')) {
     getWeather()
@@ -55,7 +55,7 @@ onMounted(() => {
 })
 
 const getWeather = async () => {
-  const res = await proxy.$axios.get('https://www.yiketianqi.com/free/day', {
+  const res = await axios.get('https://www.yiketianqi.com/free/day', {
     appid: '82555458',
     appsecret: '7KBO1M68',
     unescape: 1,

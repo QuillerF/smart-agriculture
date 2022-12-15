@@ -1,6 +1,3 @@
-export const data1 = [1.232, 2.344, 3.658, 1.339, 2.205, 1.181, 2.339, 1.505, 3.681]
-export const data2 = [3.232, 2.344, 1.658, 2.339, 3.205, 4.181, 3.339, 4.505, 5.681]
-
 export const Option = {
   backgroundColor: 'transparent',
   tooltip: {
@@ -43,7 +40,7 @@ export const Option = {
   xAxis: [
     {
       type: 'category',
-      data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+      data: [] as any,
       axisTick: {
         show: false
       },
@@ -145,7 +142,7 @@ export const Option = {
           global: false // 缺省为 false
         }
       },
-      data: data1 as any
+      data: [] as any
     }
   ]
 }

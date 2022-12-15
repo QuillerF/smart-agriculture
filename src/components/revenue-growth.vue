@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 13:28:07
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 01:37:13
+ * @LastEditTime: 2022-12-13 21:35:48
 -->
 <template>
   <div class="card">
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { Option, ProjectOption } from '@/model/revenue'
+import { Option, ProjectOption } from '@/model/revenue-growth'
 import useHttpStore from '@/store/http'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'

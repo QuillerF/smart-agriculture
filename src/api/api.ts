@@ -4,7 +4,7 @@
 // export default allApi
 
 import data from './modules/data'
-import common from './modules/data'
+import common from './modules/common'
 
 export default {
   ...data,
