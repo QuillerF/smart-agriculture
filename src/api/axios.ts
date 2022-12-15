@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
     const { districtId, isProject } = store
     const { userId } = store.userInfo
     // 公共参数
-    const params = {}
+    const params = { userId, districtId: isProject ? districtId : '' }
     // 合并参数
     if (config.headers?.mergeParams !== false) {
       config.method === 'post'
