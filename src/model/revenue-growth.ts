@@ -91,7 +91,9 @@ export const Option = {
     top: 22
   },
   grid: { right: 5, left: 10, bottom: 40, containLabel: true },
-  tooltip: {},
+  tooltip: {
+    valueFormatter: (value: any) => `${value}%`
+  },
   xAxis: {
     type: 'category',
     data: ['小麦收入', '玉米收入', '水稻收入', '其他收入'],

@@ -29,7 +29,7 @@ const map = templateRef<InstanceType<typeof MainMap>>('map', null)
 const target = templateRef<InstanceType<typeof ProjectMapView>>('target', null)
 
 const openBlockView = () => {
-  map.value.clearMarker()
+  // map.value.clearMarker()
   target.value.showModal()
 }
 
@@ -41,7 +41,7 @@ const store = useSystemStore()
 onMounted(() => {
   if (store.isProject) {
     openBlockView()
-    map.value.clearMarker()
+    // map.value.clearMarker()
   }
 })
 </script>

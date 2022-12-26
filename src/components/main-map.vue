@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-14 23:53:35
+ * @LastEditTime: 2022-12-21 22:06:49
 -->
 <template>
   <div class="card">
@@ -89,6 +89,10 @@ const queryWebHomeLand = async (provinceId: string) => {
     return []
   }
 }
+
+onActivated(() => {
+  showMarker()
+})
 
 onMounted(async () => {
   if (store.isProject) {

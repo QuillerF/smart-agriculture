@@ -23,7 +23,7 @@ const color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
 ])
 
 const colorSet = [
-  [1, color],
+  [0, color],
   [1, '#202e5c']
 ]
 

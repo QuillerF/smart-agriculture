@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 19:29:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 22:25:04
+ * @LastEditTime: 2022-12-27 00:52:09
 -->
 <template>
   <div class="card">
@@ -36,12 +36,21 @@ interface returnItemType {
   store3: number
   store4: number
   weight: number
+  total: number
+}
+
+const countRatio = (weight: number, total: number): number => {
+  if (weight > 0 && total > 0) {
+    return Number((weight / total).toFixed(1))
+  }
+  return 0
 }
 
 const queryWebStorage = async () => {
   try {
     const { data } = await axios.post<{ data: returnItemType }>(api.webStorage, { provinceId: 17 })
     option.value.series[0].data = [{ name: '存储量', value: data.weight }]
+    option.value.series[0].axisLine.lineStyle.color[0][0] = countRatio(data.weight, data.total)
     optionStore.value.series[1].data = optionStore.value.series[1].data.map(
       (el: { nodeStatus: string }, index: number) => {
         el.nodeStatus = statusEnum[data[`store${index + 1}` as keyof returnItemType]]

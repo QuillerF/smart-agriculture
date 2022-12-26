@@ -3,19 +3,21 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-15 01:39:28
+ * @LastEditTime: 2022-12-21 21:33:17
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
     <select-custom class="select" ref="select"></select-custom>
-    <section v-for="item in 4" :key="item" @click="changeProject">
-      <project-map></project-map>
-      <span class="block-text">惠安街道11666亩</span>
+    <section v-for="item in projectList" :key="item.id" @click="changeProject(item)">
+      <project-map :img-url="item.overview"></project-map>
+      <span class="block-text">{{ item.name }}</span>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import useHttpStore from '@/store/http'
+
 const router = useRouter()
 
 const target = templateRef<HTMLElement>('target', null)
@@ -25,23 +27,27 @@ const isShowBlock = ref(false)
 
 const emit = defineEmits(['close'])
 
-// onClickOutside(
-//   target,
-//   (event) => {
-//     isShowBlock.value = false
-//     emit('close')
-//   },
-//   {
-//     ignore: [select]
-//   }
-// )
+const { axios, api } = useHttpStore()
+const projectList = ref([] as any)
+const queryWebProjects = async () => {
+  try {
+    const { data } = await axios.post<any>(api.webProjects)
+    projectList.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  queryWebProjects()
+})
 
 const showModal = () => {
   isShowBlock.value = true
 }
 
-const changeProject = () => {
-  router.push('/block')
+const changeProject = (item: any) => {
+  router.push({ path: '/block', query: item })
 }
 
 defineExpose({

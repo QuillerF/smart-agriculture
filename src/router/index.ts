@@ -96,6 +96,7 @@ window.addEventListener('unload', () => {
 // 删除敏感信息
 window.addEventListener('load', () => {
   sessionStorage.removeItem('userInfo')
+  sessionStorage.removeItem('districtId')
 })
 
 export default router

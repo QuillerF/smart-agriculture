@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 15:49:05
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 21:49:34
+ * @LastEditTime: 2022-12-27 00:38:01
 -->
 <template>
   <div class="card">
@@ -35,11 +35,15 @@ interface returnItemType {
 const queryWebProgress = async () => {
   try {
     const { data } = await axios.post<{ data: returnItemType }>(api.webProgress)
-    const { finished, unfinished } = data
-    option.value.series[0].data = [
-      { name: '未完成', value: unfinished * 100 },
-      { name: '已完成', value: finished * 100 }
-    ]
+    if (data) {
+      const { finished, unfinished } = data
+      option.value.series[0].data = [
+        { name: '未完成', value: unfinished * 100 },
+        { name: '已完成', value: finished * 100 }
+      ]
+    } else {
+      option.value.series[0].data = []
+    }
   } catch (error) {
     console.log(error)
   }
