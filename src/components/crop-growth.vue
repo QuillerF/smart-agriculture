@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-27 01:37:08
+ * @LastEditTime: 2022-12-27 01:39:24
 -->
 <template>
   <div class="card">
@@ -46,7 +46,9 @@ const queryWebStorage = async () => {
     console.log(error)
   }
 }
-onMounted(() => {})
+onMounted(() => {
+  queryWebStorage()
+})
 </script>
 
 <style scoped lang="less">
