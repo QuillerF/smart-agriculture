@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-21 21:33:17
+ * @LastEditTime: 2022-12-27 01:26:36
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 
 const router = useRouter()
 
@@ -32,7 +33,16 @@ const projectList = ref([] as any)
 const queryWebProjects = async () => {
   try {
     const { data } = await axios.post<any>(api.webProjects)
-    projectList.value = data
+    projectList.value = data.length
+      ? data
+      : [
+          {
+            area: 6026465.36, // 地块面积
+            overview: 'https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281', //概览图地址
+            name: '兰考智慧地块项目', // 项目名称
+            id: 1 // 项目id
+          }
+        ]
   } catch (error) {
     console.log(error)
   }
@@ -45,9 +55,11 @@ onMounted(() => {
 const showModal = () => {
   isShowBlock.value = true
 }
+const store = useSystemStore()
 
 const changeProject = (item: any) => {
-  router.push({ path: '/block', query: item })
+  store.changeProjectId(item.id)
+  router.push({ path: '/block' })
 }
 
 defineExpose({

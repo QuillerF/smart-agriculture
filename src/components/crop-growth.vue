@@ -3,16 +3,16 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 19:15:01
+ * @LastEditTime: 2022-12-27 01:37:08
 -->
 <template>
   <div class="card">
-    <view-title>当前作物生长—成熟期</view-title>
+    <view-title>当前作物生长—{{ growthData.growth_name }}</view-title>
     <div class="chart">
       <img class="border" :src="botanyImg" alt="" />
-      <section class="chart-item">株高： 280cm</section>
-      <section class="chart-item top2">茎粗： 3.5cm</section>
-      <section class="chart-item top3">叶片数： 18</section>
+      <section class="chart-item">株高： {{ growthData.height || '--' }}cm</section>
+      <section class="chart-item top2">茎粗： {{ growthData.diameter || '--' }}cm</section>
+      <section class="chart-item top3">叶片数： {{ growthData.pieces || '--' }}</section>
       <section class="chart-item right">湿度： 71.3%</section>
       <section class="chart-item right top2">温度： 20℃</section>
     </div>
@@ -21,6 +21,32 @@
 
 <script setup lang="ts">
 import botanyImg from '@/assets/img/botany.png'
+import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
+const store = useSystemStore()
+const { axios, api } = useHttpStore()
+
+const growthData = ref({} as returnType)
+
+interface returnType {
+  growth_name: string
+  height: string
+  diameter: string
+  pieces: string
+  crop: string
+  spike_width: string
+  baldtip_length: string
+}
+
+const queryWebStorage = async () => {
+  try {
+    const { data } = await axios.post<{ data: returnType }>(api.webGrowth, { projectId: store.projectId })
+    growthData.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+onMounted(() => {})
 </script>
 
 <style scoped lang="less">

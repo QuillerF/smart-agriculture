@@ -5,6 +5,7 @@ const useSystemStore = defineStore({
   state: () => ({
     userInfo: { userId: '' },
     districtId: '',
+    projectId: '',
     provinceData: { id: '', name: '' },
     isProject: false
   }),
@@ -20,11 +21,15 @@ const useSystemStore = defineStore({
     changeDistrictId(id: string) {
       this.districtId = id
     },
-    // 修改districtId
+    // 修改projectId
+    changeProjectId(id: string) {
+      this.projectId = id
+    },
+    // 修改省份数据
     changeProvinceData(data: any) {
       this.provinceData = data
     },
-    // 修改districtId
+    // 修改是否是项目页面
     changeIsProject(val: boolean) {
       this.isProject = val
     }
