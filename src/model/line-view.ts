@@ -60,10 +60,8 @@ export const Option = {
       },
       axisLabel: {
         formatter: `{value}年`,
-        textStyle: {
-          color: '#bcbcbc',
-          fontSize: 14
-        },
+        color: '#bcbcbc',
+        fontSize: 14,
         margin: 8
       }
     }
@@ -83,10 +81,8 @@ export const Option = {
       },
       axisLabel: {
         formatter: '{value}',
-        textStyle: {
-          color: '#bcbcbc',
-          fontSize: 14
-        }
+        color: '#bcbcbc',
+        fontSize: 14
       },
       axisTick: {
         show: false
@@ -118,9 +114,7 @@ export const Option = {
         color: '#57aeff'
       },
       itemStyle: {
-        normal: {
-          color: '#57aeff'
-        }
+        color: '#57aeff'
       },
       areaStyle: {
         color: {

@@ -51,28 +51,28 @@ export const Option = {
     zoom: 1.15,
     top: '10%',
     // left:'52%',
-    label: {
-      emphasis: {
+    emphasis: {
+      label: {
         show: false
       }
     },
     roam: true,
-    itemStyle: {
-      normal: {
-        areaColor: '#051e5f',
-        borderColor: '#114182',
-        borderWidth: 1,
-        shadowBlur: 0,
-        shadowColor: '#114182',
-        shadowOffsetX: 0,
-        shadowOffsetY: 0
+    emphasis: {
+      label: {
+        show: false
       },
-      emphasis: {
-        label: {
-          show: false
-        },
+      itemStyle: {
         areaColor: 'rgba(0, 255, 255, .1)'
       }
+    },
+    itemStyle: {
+      areaColor: '#051e5f',
+      borderColor: '#114182',
+      borderWidth: 1,
+      shadowBlur: 0,
+      shadowColor: '#114182',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0
     }
   },
 

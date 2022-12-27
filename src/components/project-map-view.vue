@@ -3,11 +3,11 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-27 01:26:36
+ * @LastEditTime: 2022-12-28 00:21:41
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
-    <select-custom class="select" ref="select"></select-custom>
+    <select-custom class="select" :options="options" @change="selectChange" ref="select"></select-custom>
     <section v-for="item in projectList" :key="item.id" @click="changeProject(item)">
       <project-map :img-url="item.overview"></project-map>
       <span class="block-text">{{ item.name }}</span>
@@ -20,6 +20,7 @@ import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
 
 const router = useRouter()
+const store = useSystemStore()
 
 const target = templateRef<HTMLElement>('target', null)
 const select = templateRef<HTMLElement>('select', null)
@@ -30,9 +31,11 @@ const emit = defineEmits(['close'])
 
 const { axios, api } = useHttpStore()
 const projectList = ref([] as any)
-const queryWebProjects = async () => {
+const queryWebProjects = async (id = '') => {
   try {
-    const { data } = await axios.post<any>(api.webProjects)
+    const { data } = await axios.post<any>(api.webProjects, {
+      districtId: id || store.districtId
+    })
     projectList.value = data.length
       ? data
       : [
@@ -48,14 +51,35 @@ const queryWebProjects = async () => {
   }
 }
 
+const options = ref([] as any)
+
+const queryWebHomeLand = async () => {
+  try {
+    const { data = [{ id: 1, name: '开封' }] } = await axios.post<any>(api.webHomeLand, {
+      provinceId: store.provinceData.id,
+      cityId: store.districtId
+    })
+    options.value = data.map((el: { id: any; name: any }) => ({
+      value: el.id,
+      label: `${store.provinceData.name}-${el.name}`
+    }))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const selectChange = (id: string) => {
+  queryWebProjects(id)
+}
+
 onMounted(() => {
   queryWebProjects()
+  queryWebHomeLand()
 })
 
 const showModal = () => {
   isShowBlock.value = true
 }
-const store = useSystemStore()
 
 const changeProject = (item: any) => {
   store.changeProjectId(item.id)

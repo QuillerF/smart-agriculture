@@ -126,29 +126,24 @@ export const Option = {
     center: geoCoordMap['陕西'],
     zoom: 1.15,
     top: '10%',
-    label: {
-      emphasis: {
+    roam: true,
+    emphasis: {
+      label: {
         show: true,
         color: '#37fdff'
-      }
-    },
-    roam: true,
-    itemStyle: {
-      normal: {
-        areaColor: '#051e5f',
-        borderColor: '#114182',
-        borderWidth: 1,
-        shadowBlur: 0,
-        shadowColor: '#114182',
-        shadowOffsetX: 0,
-        shadowOffsetY: 0
       },
-      emphasis: {
-        label: {
-          show: false
-        },
+      itemStyle: {
         areaColor: 'rgba(0, 255, 255, .1)'
       }
+    },
+    itemStyle: {
+      areaColor: '#051e5f',
+      borderColor: '#114182',
+      borderWidth: 1,
+      shadowBlur: 0,
+      shadowColor: '#114182',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0
     }
   },
 
@@ -160,49 +155,44 @@ export const Option = {
       coordinateSystem: 'geo',
       symbol: `image://${mapMark}`,
       symbolSize: [74, 100],
+      emphasis: {
+        scale: true,
+        label: {
+          show: true,
+          fontSize: 18,
+          align: 'center',
+          lineHeight: 66
+        }
+      },
       label: {
-        normal: {
-          show: true,
-          textStyle: {
-            color: '#fff',
-            fontSize: 14,
-            align: 'center',
-            lineHeight: 60
-          },
-          formatter(params: { data: { area: any; name: any } }) {
-            return `{area|${params.data.area.toFixed(0)}亩}\n{title|${params.data.name}}`
-          },
-          rich: {
-            area: {
-              color: '#37fdff'
-            },
-            title: {
-              color: '#020b24',
-              fontWeight: 600,
-              padding: [0, 0, 0, -5]
-            }
-          }
+        show: true,
+        color: '#fff',
+        fontSize: 14,
+        align: 'center',
+        lineHeight: 60,
+        formatter(params: { data: { area: any; name: any } }) {
+          return `{area|${params.data.area.toFixed(0)}亩}\n{title|${params.data.name}}`
         },
-        emphasis: {
-          show: true,
-          textStyle: {
-            fontSize: 18,
-            align: 'center',
-            lineHeight: 66
+        rich: {
+          area: {
+            color: '#37fdff'
+          },
+          title: {
+            color: '#020b24',
+            fontWeight: 600,
+            padding: [0, 0, 0, -5]
           }
         }
       },
       itemStyle: {
-        normal: {
-          color: '#D8BC37' // 标志颜色
-        }
+        color: '#D8BC37' // 标志颜色
       },
       data: [] as any,
       showEffectOn: 'render',
       rippleEffect: {
         brushType: 'stroke'
       },
-      hoverAnimation: true,
+      // hoverAnimation: true,
       zLevel: 1
     }
   ]

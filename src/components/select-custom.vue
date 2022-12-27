@@ -3,17 +3,18 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-29 03:00:47
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 20:41:31
+ * @LastEditTime: 2022-12-28 00:16:42
 -->
 <template>
   <el-select
     ref="select"
-    v-model="value"
+    v-model="select"
     :teleported="false"
     class="select-custom"
     popper-class="popper"
     placeholder="请选择"
     size="default"
+    @change="change"
   >
     <template #prefix>
       <select-svg></select-svg>
@@ -30,29 +31,34 @@ interface ItemType {
   label: string
 }
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    options: ItemType[]
+    options?: ItemType[]
   }>(),
   {
     options: () => [
       {
         value: 'Option1',
         label: '河南-兰考项目'
-      },
-      {
-        value: 'Option2',
-        label: '河南-新乡项目'
-      },
-      {
-        value: 'Option3',
-        label: '河南-郑州项目'
       }
     ]
   }
 )
 
-const value = ref('Option1')
+const select = ref('')
+
+const emit = defineEmits(['change'])
+
+const change = (id: string) => {
+  emit('change', id)
+}
+
+watch(
+  () => props.options,
+  (val) => {
+    select.value = val[0]?.value
+  }
+)
 </script>
 
 <style scoped lang="less">
