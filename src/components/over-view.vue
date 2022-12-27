@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 15:53:35
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 23:01:09
+ * @LastEditTime: 2022-12-28 01:11:16
 -->
 <template>
   <div class="over">
@@ -59,7 +59,7 @@ const overItem: Ref<any> = ref({})
 
 const queryWebTop = async () => {
   const { data } = await axios.post<{ data: any }>(api.webTop, {})
-  console.log('====>', data)
+  // console.log('====>', data)
   overItem.value = data
 }
 

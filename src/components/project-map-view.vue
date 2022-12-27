@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 00:21:41
+ * @LastEditTime: 2022-12-28 01:13:50
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
@@ -30,7 +30,9 @@ const isShowBlock = ref(false)
 const emit = defineEmits(['close'])
 
 const { axios, api } = useHttpStore()
+
 const projectList = ref([] as any)
+
 const queryWebProjects = async (id = '') => {
   try {
     const { data } = await axios.post<any>(api.webProjects, {
@@ -41,7 +43,7 @@ const queryWebProjects = async (id = '') => {
       : [
           {
             area: 6026465.36, // 地块面积
-            overview: 'https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281', //概览图地址
+            overview: 'https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281',
             name: '兰考智慧地块项目', // 项目名称
             id: 1 // 项目id
           }

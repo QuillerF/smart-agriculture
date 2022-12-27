@@ -49,7 +49,7 @@ router.beforeEach(async (to, from, next) => {
     NProgress.start()
   }
   const districtId = sessionStorage.getItem('districtId')
-  if (districtId) {
+  if (districtId && !store.districtId) {
     const provinceData = JSON.parse(sessionStorage.getItem('provinceData') || '{}')
     store.changeDistrictId(districtId)
     store.changeProvinceData(provinceData)

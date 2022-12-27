@@ -3,18 +3,18 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-27 01:39:24
+ * @LastEditTime: 2022-12-28 01:46:09
 -->
 <template>
   <div class="card">
     <view-title>当前作物生长—{{ growthData.growth_name }}</view-title>
     <div class="chart">
       <img class="border" :src="botanyImg" alt="" />
-      <section class="chart-item">株高： {{ growthData.height || '--' }}cm</section>
-      <section class="chart-item top2">茎粗： {{ growthData.diameter || '--' }}cm</section>
+      <section class="chart-item">株高： {{ growthData.height || '--' }} cm</section>
+      <section class="chart-item top2">茎粗： {{ growthData.diameter || '--' }} cm</section>
       <section class="chart-item top3">叶片数： {{ growthData.pieces || '--' }}</section>
-      <section class="chart-item right">湿度： 71.3%</section>
-      <section class="chart-item right top2">温度： 20℃</section>
+      <section class="chart-item right">湿度： {{ growthData.soil_moisture || '--' }} %</section>
+      <section class="chart-item right top2">温度： {{ growthData.soil_temperature }}℃</section>
     </div>
   </div>
 </template>
@@ -36,6 +36,8 @@ interface returnType {
   crop: string
   spike_width: string
   baldtip_length: string
+  soil_temperature: string
+  soil_moisture: string
 }
 
 const queryWebStorage = async () => {

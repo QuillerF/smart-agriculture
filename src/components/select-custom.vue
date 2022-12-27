@@ -3,12 +3,12 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-29 03:00:47
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 00:16:42
+ * @LastEditTime: 2022-12-28 01:43:17
 -->
 <template>
   <el-select
     ref="select"
-    v-model="select"
+    v-model="selectVal"
     :teleported="false"
     class="select-custom"
     popper-class="popper"
@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import selectSvg from '@/assets/svg/select.svg?component'
+import useSystemStore from '@/store/system'
 
 interface ItemType {
   value: string
@@ -45,18 +46,23 @@ const props = withDefaults(
   }
 )
 
-const select = ref('')
+const selectVal = ref('')
 
 const emit = defineEmits(['change'])
 
 const change = (id: string) => {
+  store.changeDistrictId(id)
   emit('change', id)
 }
+const store = useSystemStore()
 
 watch(
   () => props.options,
   (val) => {
-    select.value = val[0]?.value
+    selectVal.value = val.find((el) => el?.value === store.districtId)?.value || val[0]?.value
+  },
+  {
+    immediate: true
   }
 )
 </script>

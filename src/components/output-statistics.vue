@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 14:49:57
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 21:35:54
+ * @LastEditTime: 2022-12-28 02:02:33
 -->
 <template>
   <div class="card">
@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { tableProjectData, tableData } from '@/model/output-statistics'
 import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 import { Ref } from 'vue'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
@@ -26,11 +27,14 @@ const title = computed(() => (props.target === 'home' ? '产量统计' : '预警
 
 const dataList: Ref<returnItemType[]> = ref([])
 
+const dataListWarning: Ref<returnWarningType[]> = ref([])
+
 const config = reactiveComputed(() => {
   if (props.target === 'home') {
     tableData.data = dataList.value.map((el) => [el.year, el.weight, el.name])
     return tableData
   }
+  tableProjectData.data = dataListWarning.value.map((el) => [el.time, el.type, el.district, '查看'])
   return tableProjectData
 })
 
@@ -42,6 +46,14 @@ interface returnItemType {
   weight: number
 }
 
+interface returnWarningType {
+  deviceType: string
+  district: string
+  id: string
+  time: string
+  type: string
+}
+
 const queryWebProportion = async () => {
   try {
     const { data } = await axios.post<{ data: returnItemType[] }>(api.webCounting)
@@ -51,8 +63,25 @@ const queryWebProportion = async () => {
   }
 }
 
+const store = useSystemStore()
+
+const queryWebWarning = async () => {
+  try {
+    const { data } = await axios.post<{ data: returnWarningType[] }>(api.webWarning, {
+      projectId: store.projectId
+    })
+    dataListWarning.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 onMounted(() => {
-  queryWebProportion()
+  if (props.target === 'home') {
+    queryWebProportion()
+  } else {
+    queryWebWarning()
+  }
 })
 </script>
 
