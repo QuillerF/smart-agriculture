@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 15:49:05
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-27 00:38:01
+ * @LastEditTime: 2022-12-28 23:47:51
 -->
 <template>
   <div class="card">
@@ -17,6 +17,7 @@
 import pieBorder from '@/assets/svg/pie-border.svg?component'
 import { Option } from '@/model/operation-progress'
 import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
@@ -31,10 +32,14 @@ interface returnItemType {
   finished: number // 完成度
   unfinished: number // 未完成
 }
+const route = useRoute()
+const store = useSystemStore()
 
 const queryWebProgress = async () => {
   try {
-    const { data } = await axios.post<{ data: returnItemType }>(api.webProgress)
+    const { data } = await axios.post<{ data: returnItemType }>(api.webProgress, {
+      projectId: route.name === 'block' ? store.projectId : ''
+    })
     if (data) {
       const { finished, unfinished } = data
       option.value.series[0].data = [

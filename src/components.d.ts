@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     BlockMap: typeof import('./components/block-map.vue')['default']
     CropGrowth: typeof import('./components/crop-growth.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']

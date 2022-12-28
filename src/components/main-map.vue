@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 01:41:38
+ * @LastEditTime: 2022-12-28 23:06:35
 -->
 <template>
   <div class="card">
@@ -51,7 +51,7 @@ const handleClick = async (data: any) => {
       toLocalMap(data.data)
       return
     }
-    store.changeDistrictId(data.data.id)
+    store.changeDistrictId('1856')
     router.push('/project')
     // emit('open', data)
   }

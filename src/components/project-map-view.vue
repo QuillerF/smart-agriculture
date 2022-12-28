@@ -3,15 +3,23 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 01:13:50
+ * @LastEditTime: 2022-12-28 23:33:02
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
     <select-custom class="select" :options="options" @change="selectChange" ref="select"></select-custom>
-    <section v-for="item in projectList" :key="item.id" @click="changeProject(item)">
-      <project-map :img-url="item.overview"></project-map>
-      <span class="block-text">{{ item.name }}</span>
-    </section>
+    <el-carousel :autoplay="false" height="550px">
+      <el-carousel-item v-for="(screen, index) in Math.ceil(projectList.length / 4)" :key="screen" class="block-card">
+        <section
+          v-for="item in projectList.slice(index * 4, index * 4 + 4)"
+          :key="item.id"
+          @click="changeProject(item)"
+        >
+          <project-map :img-url="item.overview"></project-map>
+          <span class="block-text">{{ item.name }}</span>
+        </section>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
@@ -38,16 +46,7 @@ const queryWebProjects = async (id = '') => {
     const { data } = await axios.post<any>(api.webProjects, {
       districtId: id || store.districtId
     })
-    projectList.value = data.length
-      ? data
-      : [
-          {
-            area: 6026465.36, // 地块面积
-            overview: 'https://img0.baidu.com/it/u=1705694933,4002952892&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281',
-            name: '兰考智慧地块项目', // 项目名称
-            id: 1 // 项目id
-          }
-        ]
+    projectList.value = data.length ? data : []
   } catch (error) {
     console.log(error)
   }
@@ -95,14 +94,17 @@ defineExpose({
 
 <style scoped lang="less">
 .block {
-  display: grid;
-  grid-template-columns: 314px 314px;
-  grid-template-rows: 200px 200px;
-  grid-gap: 96px 57px;
-  padding: 80px;
-  height: 700px;
+  padding: 80px 20px;
+  // height: 700px;
   background: rgba(4, 22, 85, 0.5);
   position: relative;
+  &-card {
+    display: grid;
+    grid-template-columns: 314px 314px;
+    grid-template-rows: 200px 200px;
+    grid-gap: 96px 57px;
+    justify-content: center;
+  }
   .select {
     position: absolute;
     top: 20px;

@@ -52,6 +52,7 @@ router.beforeEach(async (to, from, next) => {
   if (districtId && !store.districtId) {
     const provinceData = JSON.parse(sessionStorage.getItem('provinceData') || '{}')
     store.changeDistrictId(districtId)
+    store.changeProjectId(sessionStorage.getItem('projectId') || '')
     store.changeProvinceData(provinceData)
   }
   const { userId } = store.userInfo
@@ -91,6 +92,7 @@ router.afterEach((to, from) => {
 window.addEventListener('unload', () => {
   sessionStorage.setItem('userInfo', JSON.stringify(store.userInfo))
   sessionStorage.setItem('districtId', store.districtId)
+  sessionStorage.setItem('projectId', store.projectId)
   sessionStorage.setItem('provinceData', JSON.stringify(store.provinceData))
 })
 // 删除敏感信息

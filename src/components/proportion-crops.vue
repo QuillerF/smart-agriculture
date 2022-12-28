@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 01:40:33
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-15 00:02:28
+ * @LastEditTime: 2022-12-29 00:03:36
 -->
 <template>
   <div class="card">
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { OptionItem, OptionItemParam, OptionItemProjectParam } from '@/model/proportion-crops'
 import useHttpStore from '@/store/http'
-import { Ref } from 'vue'
+import useSystemStore from '@/store/system'
 
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
@@ -73,7 +73,31 @@ const queryWebProportion = async () => {
   }
 }
 
+const store = useSystemStore()
+
+const queryWebProjects = async (id = '') => {
+  try {
+    const { data } = await axios.post<any>(api.webProjects, {
+      districtId: id || store.districtId
+    })
+    const total = data.reduce((total: number, cur: { area: any }) => total + Number(cur.area), 0)
+    list.value.map((el, index) => {
+      el.name = data[index].name
+      el.value.value = data[index].area / total
+      el.value.real = data[index].area
+      return el
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const route = useRoute()
 onMounted(() => {
+  if (route.name === 'block') {
+    queryWebProjects()
+    return
+  }
   queryWebProportion()
 })
 </script>

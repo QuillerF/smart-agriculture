@@ -10,7 +10,7 @@
       <section class="home-main-center">
         <over-view></over-view>
         <main-map ref="map"></main-map>
-        <project-map-view ref="target" class="block-map"></project-map-view>
+        <project-map-view ref="target" class="home-main-center-map"></project-map-view>
       </section>
       <section class="home-main-right">
         <grain-storage></grain-storage>
@@ -71,10 +71,11 @@ onMounted(() => {
     }
     &-center {
       position: relative;
-      .block-map {
+      &-map {
         position: absolute;
         top: 112px;
         left: 0;
+        right: 0;
         z-index: 50;
       }
     }
