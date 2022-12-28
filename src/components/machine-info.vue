@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 02:56:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-04 21:15:21
+ * @LastEditTime: 2022-12-29 01:06:57
 -->
 <template>
   <div v-show="isShow" ref="target" class="machine">
@@ -18,12 +18,12 @@
         <li class="machine-main-right-title">设备名称：水肥一体机</li>
         <li>设备状态：正常 供电状态：正常</li>
         <li>水泵状态：正常 水位深度：正常</li>
-        <li>设备编号：HNJD-001</li>
-        <li>设备Mac：558841895</li>
-        <li>网关Mac：558841895</li>
+        <li>设备编号：{{ machineInfo.code }}</li>
+        <li>设备Mac：{{ machineInfo.mac }}</li>
+        <li>网关Mac：{{ machineInfo.mac }}</li>
         <li class="machine-main-right-switch">
           <span> 远程开关: </span>
-          <el-switch v-model="isOpen" class="ml-2" style="--el-switch-on-color: #11ab69" />
+          <el-switch v-model="switchVal" class="ml-2" style="--el-switch-on-color: #11ab69" />
         </li>
         <li class="machine-main-right-link">查看灌溉任务>></li>
       </ul>
@@ -38,9 +38,13 @@ import position from '@/assets/svg/position.svg?component'
 
 const isShow = ref(false)
 
-const isOpen = ref(true)
+const switchVal = ref(true)
 
-const handleOpen = () => {
+const machineInfo = ref({} as any)
+
+const handleOpen = (value: any) => {
+  machineInfo.value = value
+  switchVal.value = machineInfo.value.status === 1
   isShow.value = true
 }
 
