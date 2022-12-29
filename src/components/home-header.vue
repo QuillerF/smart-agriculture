@@ -21,7 +21,7 @@
       <div>
         <img :src="topCalenderImg" alt="" />
         <span style="color: #49a3ff">{{ dayjs().format('YYYY.MM.DD') }}</span>
-        <span>星期{{ WeeksEnum[dayjs().day()] }}</span>
+        <span>星期{{ WeeksEnum[dayjs().day()-1] }}</span>
       </div>
       <div>
         <img :src="topManagerImg" alt="" />
