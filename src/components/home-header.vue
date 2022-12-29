@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-12-04 18:37:17
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-15 01:36:28
+ * @LastEditTime: 2022-12-29 23:18:48
 -->
 <template>
   <header class="home-header">
@@ -21,7 +21,7 @@
       <div>
         <img :src="topCalenderImg" alt="" />
         <span style="color: #49a3ff">{{ dayjs().format('YYYY.MM.DD') }}</span>
-        <span>星期{{ WeeksEnum[dayjs().day()-1] }}</span>
+        <span>星期{{ WeeksEnum[dayjs().day() - 1] }}</span>
       </div>
       <div>
         <img :src="topManagerImg" alt="" />

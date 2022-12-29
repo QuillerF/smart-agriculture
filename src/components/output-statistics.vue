@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 14:49:57
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 02:02:33
+ * @LastEditTime: 2022-12-30 02:03:03
 -->
 <template>
   <div class="card">
@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { tableProjectData, tableData } from '@/model/output-statistics'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
@@ -34,7 +35,12 @@ const config = reactiveComputed(() => {
     tableData.data = dataList.value.map((el) => [el.year, el.weight, el.name])
     return tableData
   }
-  tableProjectData.data = dataListWarning.value.map((el) => [el.time, el.type, el.district, '查看'])
+  tableProjectData.data = dataListWarning.value.map((el) => [
+    el.time,
+    el.type,
+    el.district,
+    '<span style="color:#42b8b8;cursor:pointer;">查看</span>'
+  ])
   return tableProjectData
 })
 
@@ -70,7 +76,10 @@ const queryWebWarning = async () => {
     const { data } = await axios.post<{ data: returnWarningType[] }>(api.webWarning, {
       projectId: store.projectId
     })
-    dataListWarning.value = data
+    dataListWarning.value = data.map((el) => {
+      el.time = dayjs(el.time).format('YYYY-MM-DD HH:mm:ss')
+      return el
+    })
   } catch (error) {
     console.log(error)
   }
@@ -89,16 +98,16 @@ onMounted(() => {
 .card-list {
   padding-top: 20px;
   position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(3, 15, 48, 0), rgba(3, 15, 48, 0) 60%, rgba(3, 15, 48, 0.8));
-    z-index: 20;
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background: linear-gradient(to bottom, rgba(3, 15, 48, 0), rgba(3, 15, 48, 0) 60%, rgba(3, 15, 48, 0.8));
+  //   z-index: 20;
+  // }
 }
 :deep(.header) {
   color: #48ece7;

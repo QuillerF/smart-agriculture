@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-27 02:37:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 23:33:02
+ * @LastEditTime: 2022-12-30 02:11:03
 -->
 <template>
   <div v-if="isShowBlock" ref="target" class="block">
@@ -43,39 +43,24 @@ const projectList = ref([] as any)
 
 const queryWebProjects = async (id = '') => {
   try {
-    const { data } = await axios.post<any>(api.webProjects, {
+    const { data = [] } = await axios.post<any>(api.webProjects, {
       districtId: id || store.districtId
     })
-    projectList.value = data.length ? data : []
+    projectList.value = data
   } catch (error) {
     console.log(error)
   }
 }
 
-const options = ref([] as any)
-
-const queryWebHomeLand = async () => {
-  try {
-    const { data = [{ id: 1, name: '开封' }] } = await axios.post<any>(api.webHomeLand, {
-      provinceId: store.provinceData.id,
-      cityId: store.districtId
-    })
-    options.value = data.map((el: { id: any; name: any }) => ({
-      value: el.id,
-      label: `${store.provinceData.name}-${el.name}`
-    }))
-  } catch (error) {
-    console.log(error)
-  }
-}
+const options = computed(() => store.options)
 
 const selectChange = (id: string) => {
+  store.changeDistrictId(id)
   queryWebProjects(id)
 }
 
 onMounted(() => {
   queryWebProjects()
-  queryWebHomeLand()
 })
 
 const showModal = () => {

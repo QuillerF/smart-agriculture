@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 13:28:07
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-13 21:35:48
+ * @LastEditTime: 2022-12-30 01:27:59
 -->
 <template>
   <div class="card">
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { Option, ProjectOption } from '@/model/revenue-growth'
 import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
@@ -38,16 +39,17 @@ interface returnItemType {
 const queryWebIncomeRatio = async () => {
   try {
     const { data } = await axios.post<{ data: returnItemType }>(api.webIncomeRatio)
-    // const options = props.target === 'home' ? Option : ProjectOption
     const { wheatLastYear, cornLastYear, riceLastYear, otherLastYear } = data
     const { wheatThisYear, cornThisYear, riceThisYear, otherThisYear } = data
     option.value.series[0].data = [wheatLastYear, cornLastYear, riceLastYear, otherLastYear].map((el) => el ?? null)
     option.value.series[1].data = [wheatThisYear, cornThisYear, riceThisYear, otherThisYear].map((el) => el ?? null)
-    // option.value = options
   } catch (error) {
     console.log(error)
   }
 }
+
+const route = useRoute()
+const store = useSystemStore()
 
 onMounted(() => {
   queryWebIncomeRatio()

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-29 03:00:47
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 01:43:17
+ * @LastEditTime: 2022-12-30 02:10:20
 -->
 <template>
   <el-select
@@ -51,7 +51,7 @@ const selectVal = ref('')
 const emit = defineEmits(['change'])
 
 const change = (id: string) => {
-  store.changeDistrictId(id)
+  // store.changeDistrictId(id)
   emit('change', id)
 }
 const store = useSystemStore()

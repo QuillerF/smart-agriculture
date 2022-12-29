@@ -4,9 +4,11 @@ const useSystemStore = defineStore({
   id: 'system',
   state: () => ({
     userInfo: { userId: '' },
+    provinceData: { id: '', name: '' },
+    options: [] as any,
+    cityId: '',
     districtId: '',
     projectId: '',
-    provinceData: { id: '', name: '' },
     isProject: false
   }),
   getters: {
@@ -17,6 +19,18 @@ const useSystemStore = defineStore({
     changeUserInfo(params: any) {
       this.userInfo = params
     },
+    // 修改省份数据
+    changeProvinceData(data: any) {
+      this.provinceData = data
+    },
+    // 修改下拉选择
+    changeOptions(data: any) {
+      this.options = data
+    },
+    // 修改cityId
+    changeCityId(id: string) {
+      this.cityId = id
+    },
     // 修改districtId
     changeDistrictId(id: string) {
       this.districtId = id
@@ -25,10 +39,7 @@ const useSystemStore = defineStore({
     changeProjectId(id: string) {
       this.projectId = id
     },
-    // 修改省份数据
-    changeProvinceData(data: any) {
-      this.provinceData = data
-    },
+
     // 修改是否是项目页面
     changeIsProject(val: boolean) {
       this.isProject = val

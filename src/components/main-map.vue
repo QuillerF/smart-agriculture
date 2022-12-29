@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 23:06:35
+ * @LastEditTime: 2022-12-30 01:35:18
 -->
 <template>
   <div class="card">
@@ -17,6 +17,7 @@ import { Option, geoCoordMap, provinceMap, ConvertData, returnItemType } from '@
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
 import * as echarts from 'echarts'
+import { fa } from 'element-plus/es/locale'
 import { Ref } from 'vue'
 
 const option = ref(Option)
@@ -36,22 +37,40 @@ const toLocalMap = async (data: { name: string; componentType?: string }) => {
   }
 }
 
+const route = useRoute()
 const router = useRouter()
 const store = useSystemStore()
 
-const isProvince = ref(false)
+// const queryWebHomeLand = async () => {
+//   try {
+//     const { data = [] } = await axios.post<any>(api.webHomeLand, {
+//       provinceId: '',
+//       cityId: store.cityId
+//     })
+//     options.value = data.map((el: { id: any; name: any }) => ({
+//       value: el.id,
+//       label: `${store.provinceData.name}-${el.name}`
+//     }))
+//     store.changeDistrictId(options.value[0]?.value)
+//     queryWebProjects()
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 const handleClick = async (data: any) => {
   console.log('clickData', data)
   if (data.componentSubType === 'scatter') {
-    if (provinceMap[data.name.slice(0, -1)] && !isProvince.value) {
-      isProvince.value = true
+    if (provinceMap[data.name.slice(0, -1)]) {
       store.changeProvinceData(data.data)
       provinceMarkerData.value = await queryWebHomeLand(data.data.id)
       toLocalMap(data.data)
       return
     }
-    store.changeDistrictId('1856')
+    const options = await queryWebHomeLand('', data.data.id)
+    store.changeCityId(data.data.id)
+    store.changeDistrictId(options[0].value)
+    store.changeOptions(options)
     router.push('/project')
     // emit('open', data)
   }
@@ -60,8 +79,7 @@ const handleClick = async (data: any) => {
   }
 }
 
-const handleDblclick = (data: any) => {
-  isProvince.value = false
+const handleDblclick = () => {
   option.value.geo.map = 'china'
   option.value.geo.center = geoCoordMap['陕西']
   option.value.series[0].data = initMarkerData
@@ -80,28 +98,29 @@ const { axios, api } = useHttpStore()
 const initMarkerData: Ref<Partial<returnItemType>[]> = ref([])
 const provinceMarkerData: Ref<Partial<returnItemType>[]> = ref([])
 
-const queryWebHomeLand = async (provinceId: string) => {
+const queryWebHomeLand = async (provinceId = '', cityId = '') => {
   try {
-    const { data } = await axios.post<{ data: returnItemType[] }>(api.webHomeLand, { provinceId })
-    return ConvertData(data)
+    const { data } = await axios.post<{ data: returnItemType[] }>(api.webHomeLand, { provinceId, cityId })
+    return cityId
+      ? data.map((el: { id: any; name: any }) => ({
+          value: el.id,
+          label: `${store.provinceData.name}-${el.name}`
+        }))
+      : ConvertData(data)
   } catch (error) {
     console.log(error)
     return []
   }
 }
 
-onActivated(() => {
-  showMarker()
-})
-
 onMounted(async () => {
-  if (store.isProject) {
+  if (route.name === 'project') {
     toLocalMap(store.provinceData)
     option.value.series[0].data = []
     return
   }
   initMarkerData.value = await queryWebHomeLand('')
-  option.value.series[0].data = initMarkerData.value
+  handleDblclick()
 })
 
 defineExpose({

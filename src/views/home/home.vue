@@ -10,7 +10,7 @@
       <section class="home-main-center">
         <over-view></over-view>
         <main-map ref="map"></main-map>
-        <project-map-view ref="target" class="home-main-center-map"></project-map-view>
+        <project-map-view v-if="route.name === 'project'" ref="target" class="home-main-center-map"></project-map-view>
       </section>
       <section class="home-main-right">
         <grain-storage></grain-storage>
@@ -36,6 +36,8 @@ const openBlockView = () => {
 const showMarker = () => {
   map.value.showMarker()
 }
+
+const route = useRoute()
 
 const store = useSystemStore()
 onMounted(() => {

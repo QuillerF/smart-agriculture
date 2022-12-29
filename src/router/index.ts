@@ -51,9 +51,10 @@ router.beforeEach(async (to, from, next) => {
   const districtId = sessionStorage.getItem('districtId')
   if (districtId && !store.districtId) {
     const provinceData = JSON.parse(sessionStorage.getItem('provinceData') || '{}')
+    store.changeProvinceData(provinceData)
+    store.changeCityId(sessionStorage.getItem('cityId') || '')
     store.changeDistrictId(districtId)
     store.changeProjectId(sessionStorage.getItem('projectId') || '')
-    store.changeProvinceData(provinceData)
   }
   const { userId } = store.userInfo
   if (userId) {
@@ -91,9 +92,10 @@ router.afterEach((to, from) => {
 // pinia持久化
 window.addEventListener('unload', () => {
   sessionStorage.setItem('userInfo', JSON.stringify(store.userInfo))
+  sessionStorage.setItem('provinceData', JSON.stringify(store.provinceData))
+  sessionStorage.setItem('cityId', store.cityId)
   sessionStorage.setItem('districtId', store.districtId)
   sessionStorage.setItem('projectId', store.projectId)
-  sessionStorage.setItem('provinceData', JSON.stringify(store.provinceData))
 })
 // 删除敏感信息
 window.addEventListener('load', () => {
