@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-29 03:00:47
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-30 02:10:20
+ * @LastEditTime: 2022-12-31 01:26:39
 -->
 <template>
   <el-select
@@ -51,15 +51,15 @@ const selectVal = ref('')
 const emit = defineEmits(['change'])
 
 const change = (id: string) => {
-  // store.changeDistrictId(id)
   emit('change', id)
 }
 const store = useSystemStore()
-
+const route = useRoute()
 watch(
   () => props.options,
   (val) => {
-    selectVal.value = val.find((el) => el?.value === store.districtId)?.value || val[0]?.value
+    const id = route.name === 'block' ? store.projectId : store.districtId
+    selectVal.value = val.find((el) => el?.value === id)?.value || val[0]?.value
   },
   {
     immediate: true

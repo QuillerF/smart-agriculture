@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 02:56:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-29 01:06:57
+ * @LastEditTime: 2022-12-31 02:29:11
 -->
 <template>
   <div v-show="isShow" ref="target" class="machine">
@@ -16,14 +16,22 @@
       <img :src="machineImg" alt="" />
       <ul class="machine-main-right">
         <li class="machine-main-right-title">设备名称：水肥一体机</li>
-        <li>设备状态：正常 供电状态：正常</li>
-        <li>水泵状态：正常 水位深度：正常</li>
+        <li>
+          设备状态：{{ machineStateEnum[machineInfo.state as keyof typeof machineStateEnum] }} 供电状态：{{
+            switchStateEnum[machineInfo.switchState as keyof typeof switchStateEnum]
+          }}
+        </li>
+        <li>
+          水泵状态：{{ pumpStateEnum[machineInfo.pumpState as keyof typeof pumpStateEnum] }} 水位深度：{{
+            waterStateEnum[machineInfo.waterState as keyof typeof waterStateEnum]
+          }}
+        </li>
         <li>设备编号：{{ machineInfo.code }}</li>
         <li>设备Mac：{{ machineInfo.mac }}</li>
         <li>网关Mac：{{ machineInfo.mac }}</li>
         <li class="machine-main-right-switch">
           <span> 远程开关: </span>
-          <el-switch v-model="switchVal" class="ml-2" style="--el-switch-on-color: #11ab69" />
+          <el-switch v-model="switchVal" @change="switchChange" class="ml-2" style="--el-switch-on-color: #11ab69" />
         </li>
         <li class="machine-main-right-link">查看灌溉任务>></li>
       </ul>
@@ -35,6 +43,28 @@
 import machineImg from '@/assets/img/machine-highlight.png'
 import close from '@/assets/svg/close.svg?component'
 import position from '@/assets/svg/position.svg?component'
+import useHttpStore from '@/store/http'
+
+const machineStateEnum = {
+  '01': '故障',
+  '02': '断电',
+  '10': '正常'
+}
+
+const switchStateEnum = {
+  '0': '关闭',
+  '1': '开启'
+}
+
+const waterStateEnum = {
+  '0': '缺水',
+  '1': '正常'
+}
+
+const pumpStateEnum = {
+  '0': '故障',
+  '1': '正常'
+}
 
 const isShow = ref(false)
 
@@ -42,14 +72,27 @@ const switchVal = ref(true)
 
 const machineInfo = ref({} as any)
 
-const handleOpen = (value: any) => {
+const markerType = ref('')
+
+const handleOpen = (value: any, marker: string) => {
   machineInfo.value = value
+  markerType.value = marker
   switchVal.value = machineInfo.value.status === 1
   isShow.value = true
 }
 
 const handleClose = () => {
   isShow.value = false
+}
+
+const { axios, api } = useHttpStore()
+
+const switchChange = async (val: any) => {
+  const { data } = await axios.post<any>(api.webFertilizationEdit, {
+    id: machineInfo.value.id,
+    switchState: val
+  })
+  // machineInfo.value = data[0]
 }
 
 const target = templateRef<HTMLElement>('target', null)

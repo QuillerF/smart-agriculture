@@ -3,23 +3,22 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 01:05:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-29 00:55:27
+ * @LastEditTime: 2022-12-31 01:51:59
 -->
 <template>
   <div class="card">
     <div class="card-chart">
       <div ref="chart" class="card-chart-view"></div>
     </div>
-    <work-bench class="line" @change="changeMarker"></work-bench>
+    <work-bench class="line" @change="addMarkerList"></work-bench>
     <select-custom :options="options" class="select" @change="selectChange"></select-custom>
     <machine-info ref="machine" class="machine-info"></machine-info>
   </div>
 </template>
 
 <script setup lang="ts">
-import { MachineEnum } from '@/model/project-map'
+import { MachineEnum, ApiEnum } from '@/model/project-map'
 import { maxBy, minBy } from 'lodash'
-// import lntLatJson from '@/assets/block.json'
 import MachineInfo from './machine-info.vue'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
@@ -57,32 +56,37 @@ const machine = templateRef<InstanceType<typeof MachineInfo>>('machine', null)
 
 const mapData = ref()
 
-const myIcon = new Bmap.Icon('/src/assets/img/marker-machine.png', new Bmap.Size(54, 54), {
-  anchor: new Bmap.Size(10, 25),
-  imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
-})
-
 const markersList = ref([] as any)
 
-const addMarkerWater = async () => {
+const addMarkerList = async (markerType: keyof typeof MachineEnum) => {
   try {
-    const { data } = await axios.post<any>(api.webFertilization, {
+    removeMarker()
+    const icon = MachineEnum[markerType]
+    const nowIcon = new Bmap.Icon(icon, new Bmap.Size(54, 54), {
+      anchor: new Bmap.Size(10, 25),
+      imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
+    })
+
+    const { data } = await axios.post<any>(ApiEnum[markerType], {
       projectId: store.projectId
     })
-    markersList.value = data
+
     const pointData = data.map((item: any) => {
       item.point = new Bmap.Point(item.lng, item.lat)
       return item
     })
+
     const markerData = pointData.map((el: { point: any; id: any }) => {
-      const marker = new Bmap.Marker(el.point, { icon: myIcon })
+      const marker = new Bmap.Marker(el.point, { icon: nowIcon })
       marker.id = el.id
       marker.addEventListener('click', (data: any) => {
         console.log('marker', data)
-        machine.value.handleOpen(el)
+        machine.value.handleOpen(el, markerType)
       })
       return marker
     })
+
+    markersList.value = markerData
     markerData.forEach((el: any) => {
       mapData.value.addOverlay(el)
     })
@@ -91,20 +95,9 @@ const addMarkerWater = async () => {
   }
 }
 
-const changeMarker = (val: string) => {
-  const icon = MachineEnum[val]
-  const nowIcon = new Bmap.Icon(icon, new Bmap.Size(54, 54), {
-    anchor: new Bmap.Size(10, 25),
-    imageOffset: new Bmap.Size(0, 0) // 设置图片偏移
-  })
-  // markerData.forEach((el: { setIcon: (arg0: any) => void }) => {
-  //   el.setIcon(nowIcon)
-  // })
+const removeMarker = () => {
+  mapData.value.clearOverlays()
 }
-
-// const removeMarker = () => {
-//   mapData.value.removeOverlay(markerData.value)
-// }
 
 const { axios, api } = useHttpStore()
 const store = useSystemStore()
@@ -129,16 +122,21 @@ const initMap = async () => {
     map.centerAndZoom(new Bmap.Point(centerLng, centerLat), 16)
 
     // 画线和区域掩膜
-    const polygon = new Bmap.Polygon(
-      lntLatJson.map((el) => new Bmap.Point(el.lng, el.lat)),
-      { strokeColor: '#031042', strokeWeight: 2, strokeOpacity: 0.5, fillColor: '#64a800' }
-    )
     const path = lntLatJson.map((el) => new Bmap.Point(el.lng, el.lat))
+
+    const polygon = new Bmap.Polygon(path, {
+      strokeColor: '#031042',
+      strokeWeight: 2,
+      strokeOpacity: 0.5,
+      fillColor: '#64a800',
+      enableMassClear: false
+    })
     const mapMask = new Bmap.MapMask(path, {
       showRegion: 'inside', // 显示区域范围以内部分
       isBuildingMask: true, // 楼块是否参与掩膜
       isPoiMask: true, // poi标注是否参与掩膜
-      isMapMask: true // 底图是否参与掩膜
+      isMapMask: true, // 底图是否参与掩膜
+      enableMassClear: false
     })
     map.addOverlay(mapMask)
     map.addOverlay(polygon)
@@ -148,7 +146,8 @@ const initMap = async () => {
     const content = `编号<br/>${el.code}`
     const label = new Bmap.Label(content, {
       position: point,
-      offset: new Bmap.Size(-40, 0)
+      offset: new Bmap.Size(-40, 0),
+      enableMassClear: false
     })
     map.addOverlay(label) // 将标注添加到地图中
     label.setStyle({
@@ -160,11 +159,7 @@ const initMap = async () => {
       backgroundColor: 'transparent'
     })
 
-    // 添加标记物
-    // markerData.forEach((el) => {
-    //   map.addOverlay(el)
-    // })
-    addMarkerWater()
+    addMarkerList('water')
   })
 }
 
