@@ -91,24 +91,6 @@ export const ConvertData = (list: returnItemType[]) =>
     standbyValue: geoCoordMap[name.slice(0, -1)]
   }))
 
-export const henanList = [
-  {
-    name: '新乡',
-    value: [113.9336, 35.30964],
-    area: 500000
-  },
-  {
-    name: '郑州',
-    value: [113.631419, 34.753439],
-    area: 500000
-  },
-  {
-    name: '洛阳',
-    value: [112.459421, 34.624263],
-    area: 500000
-  }
-]
-
 export const Option = {
   backgroundColor: '#031554',
   title: {

@@ -2,6 +2,11 @@ import dayjs from 'dayjs'
 
 import { cloneDeep } from 'lodash'
 
+export enum CropTypeEnum {
+  '玉米' = 1,
+  '小麦' = 2
+}
+
 const Colors = [
   {
     type: 'linear',
@@ -181,8 +186,104 @@ export const Option = {
   ]
 }
 
-export const ProjectOption = cloneDeep(Option)
-
-ProjectOption.xAxis.data = ['2019', '2020', '2021', '2022']
-ProjectOption.series[0].name = '小麦'
-ProjectOption.series[1].name = '玉米'
+export const ProjectOption = {
+  color: ['#1C86F1'],
+  backgroundColor: '#030f30',
+  legend: {
+    show: true,
+    textStyle: {
+      color: '#ecf0ff'
+    },
+    itemHeight: 12,
+    itemWidth: 12,
+    right: 37,
+    top: 22
+  },
+  grid: { right: 5, left: 10, bottom: 40, containLabel: true },
+  tooltip: {
+    valueFormatter: (value: any) => `${value}元`
+  },
+  xAxis: {
+    type: 'category',
+    data: ['2019', '2020', '2021', '2022'],
+    axisLine: {
+      show: true,
+      lineStyle: {
+        color: '#314157'
+      }
+    },
+    axisTick: {
+      show: false
+    },
+    axisLabel: {
+      color: '#eeeeee'
+    }
+  },
+  yAxis: {
+    show: true,
+    name: '价格(元)',
+    min(data: { min: number }) {
+      return data.min < 0 ? null : 0
+    },
+    max: (data: { max: number }) => (data.max < 3 || isNaN(data.max) ? 3 : null),
+    nameTextStyle: {
+      color: '#eee'
+    },
+    axisLine: {
+      show: true,
+      lineStyle: {
+        color: '#314157'
+      }
+    },
+    axisTick: {
+      show: false
+    },
+    splitLine: {
+      lineStyle: {
+        color: '#1a2843'
+      }
+    },
+    axisLabel: {
+      color: '#eee'
+    }
+  },
+  series: [
+    {
+      name: '小麦',
+      type: 'bar',
+      color: '#fdc81e',
+      barWidth: 15,
+      barGap: '70%',
+      data: [] as any,
+      label: {
+        show: false,
+        position: 'top',
+        color: '#ffffff'
+      },
+      itemStyle: {
+        color(params: { value: number }) {
+          return params.value < 0 ? Colors[1] : Colors[0]
+        }
+      }
+    },
+    {
+      name: '玉米',
+      color: '#22c6fc',
+      type: 'bar',
+      barWidth: 15,
+      barGap: '70%',
+      data: [] as any,
+      label: {
+        show: false,
+        formatter: '{c}元',
+        position: 'top',
+        color: '#ffffff'
+      },
+      itemStyle: {
+        color(params: { value: number }) {
+          return params.value < 0 ? Colors[3] : Colors[2]
+        }
+      }
+    }
+  ]
+}

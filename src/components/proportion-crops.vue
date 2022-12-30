@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 01:40:33
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-29 00:03:36
+ * @LastEditTime: 2022-12-30 23:28:31
 -->
 <template>
   <div class="card">
@@ -81,12 +81,13 @@ const queryWebProjects = async (id = '') => {
       districtId: id || store.districtId
     })
     const total = data.reduce((total: number, cur: { area: any }) => total + Number(cur.area), 0)
-    list.value.map((el, index) => {
+    const params = list.value.map((el, index) => {
       el.name = data[index].name
       el.value.value = data[index].area / total
       el.value.real = data[index].area
       return el
     })
+    option.value.series = params.map((el) => new OptionItem(el))
   } catch (error) {
     console.log(error)
   }

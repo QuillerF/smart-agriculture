@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-30 01:35:18
+ * @LastEditTime: 2022-12-31 01:04:35
 -->
 <template>
   <div class="card">
@@ -17,7 +17,6 @@ import { Option, geoCoordMap, provinceMap, ConvertData, returnItemType } from '@
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
 import * as echarts from 'echarts'
-import { fa } from 'element-plus/es/locale'
 import { Ref } from 'vue'
 
 const option = ref(Option)
@@ -40,23 +39,6 @@ const toLocalMap = async (data: { name: string; componentType?: string }) => {
 const route = useRoute()
 const router = useRouter()
 const store = useSystemStore()
-
-// const queryWebHomeLand = async () => {
-//   try {
-//     const { data = [] } = await axios.post<any>(api.webHomeLand, {
-//       provinceId: '',
-//       cityId: store.cityId
-//     })
-//     options.value = data.map((el: { id: any; name: any }) => ({
-//       value: el.id,
-//       label: `${store.provinceData.name}-${el.name}`
-//     }))
-//     store.changeDistrictId(options.value[0]?.value)
-//     queryWebProjects()
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
 
 const handleClick = async (data: any) => {
   console.log('clickData', data)

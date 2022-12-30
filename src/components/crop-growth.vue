@@ -3,13 +3,13 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 01:46:09
+ * @LastEditTime: 2022-12-31 00:55:59
 -->
 <template>
   <div class="card">
     <view-title>当前作物生长—{{ growthData.growth_name }}</view-title>
     <div class="chart">
-      <img class="border" :src="botanyImg" alt="" />
+      <img class="chart-img" :src="getImgUrl" alt="" />
       <section class="chart-item">株高： {{ growthData.height || '--' }} cm</section>
       <section class="chart-item top2">茎粗： {{ growthData.diameter || '--' }} cm</section>
       <section class="chart-item top3">叶片数： {{ growthData.pieces || '--' }}</section>
@@ -20,7 +20,12 @@
 </template>
 
 <script setup lang="ts">
-import botanyImg from '@/assets/img/botany.png'
+// import botanyImg from '@/assets/img/botany.png'
+// import cornImg1 from '@/assets/img/corn1.png'
+// import cornImg2 from '@/assets/img/corn2.png'
+// import cornImg3 from '@/assets/img/corn3.png'
+// import cornImg4 from '@/assets/img/corn4.png'
+// import cornImg5 from '@/assets/img/corn5.png'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
 const store = useSystemStore()
@@ -38,7 +43,13 @@ interface returnType {
   baldtip_length: string
   soil_temperature: string
   soil_moisture: string
+  seq: number
 }
+
+const getImgUrl = computed(() => {
+  const name = `corn${growthData.value.seq}`
+  return new URL(`../assets/img/${name}.png`, import.meta.url).href
+})
 
 const queryWebStorage = async () => {
   try {
@@ -68,6 +79,10 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  &-img {
+    position: relative;
+    z-index: 1;
+  }
   &-item {
     position: absolute;
     top: 110px;
@@ -77,6 +92,7 @@ onMounted(() => {
     line-height: 25px;
     border-bottom: 1px solid #2795fa;
     padding: 0 10px;
+    z-index: 2;
     &::after {
       content: '';
       position: absolute;

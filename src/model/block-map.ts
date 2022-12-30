@@ -51,11 +51,6 @@ export const Option = {
     zoom: 1.15,
     top: '10%',
     // left:'52%',
-    emphasis: {
-      label: {
-        show: false
-      }
-    },
     roam: true,
     emphasis: {
       label: {

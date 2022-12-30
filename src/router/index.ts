@@ -36,11 +36,11 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.isException) {
     return next()
   }
-  if (to.name === 'home') {
-    store.changeIsProject(false)
-  }
+
   if (to.name === 'project') {
     store.changeIsProject(true)
+  } else {
+    store.changeIsProject(false)
   }
 
   // 设置页面标题
@@ -51,6 +51,7 @@ router.beforeEach(async (to, from, next) => {
   const districtId = sessionStorage.getItem('districtId')
   if (districtId && !store.districtId) {
     const provinceData = JSON.parse(sessionStorage.getItem('provinceData') || '{}')
+    store.changeOptions(JSON.parse(sessionStorage.getItem('options') || '[]'))
     store.changeProvinceData(provinceData)
     store.changeCityId(sessionStorage.getItem('cityId') || '')
     store.changeDistrictId(districtId)
@@ -93,6 +94,7 @@ router.afterEach((to, from) => {
 window.addEventListener('unload', () => {
   sessionStorage.setItem('userInfo', JSON.stringify(store.userInfo))
   sessionStorage.setItem('provinceData', JSON.stringify(store.provinceData))
+  sessionStorage.setItem('options', JSON.stringify(store.options))
   sessionStorage.setItem('cityId', store.cityId)
   sessionStorage.setItem('districtId', store.districtId)
   sessionStorage.setItem('projectId', store.projectId)

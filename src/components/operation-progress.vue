@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 15:49:05
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-28 23:47:51
+ * @LastEditTime: 2022-12-31 00:21:04
 -->
 <template>
   <div class="card">
@@ -38,7 +38,8 @@ const store = useSystemStore()
 const queryWebProgress = async () => {
   try {
     const { data } = await axios.post<{ data: returnItemType }>(api.webProgress, {
-      projectId: route.name === 'block' ? store.projectId : ''
+      projectId: route.name === 'block' ? store.projectId : '',
+      districtId: route.name === 'block' ? '' : store.districtId
     })
     if (data) {
       const { finished, unfinished } = data
@@ -53,6 +54,12 @@ const queryWebProgress = async () => {
     console.log(error)
   }
 }
+watch(
+  () => store.projectId,
+  () => {
+    queryWebProgress()
+  }
+)
 
 onMounted(() => {
   queryWebProgress()
