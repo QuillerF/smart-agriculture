@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 11:22:56
+ * @LastEditTime: 2022-12-31 11:30:13
 -->
 <template>
   <div class="card">
@@ -14,7 +14,7 @@
       <section class="chart-item top2">茎粗： {{ growthData.diameter || '--' }} cm</section>
       <section class="chart-item top3">叶片数： {{ growthData.pieces || '--' }}</section>
       <section class="chart-item right">湿度： {{ growthData.soil_moisture || '--' }} %</section>
-      <section class="chart-item right top2">温度： {{ growthData.soil_temperature }}℃</section>
+      <section class="chart-item right top2">温度： {{ growthData.soil_temperature || '--' }}℃</section>
     </div>
   </div>
 </template>

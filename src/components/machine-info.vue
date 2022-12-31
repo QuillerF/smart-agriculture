@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 02:56:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 02:29:11
+ * @LastEditTime: 2022-12-31 11:46:46
 -->
 <template>
   <div v-show="isShow" ref="target" class="machine">
@@ -87,13 +87,15 @@ const handleClose = () => {
 
 const { axios, api } = useHttpStore()
 
-const switchChange = async (val: any) => {
+const emit = defineEmits(['change'])
+
+const switchChange = useDebounceFn(async (val: any) => {
   const { data } = await axios.post<any>(api.webFertilizationEdit, {
     id: machineInfo.value.id,
     switchState: val
   })
-  // machineInfo.value = data[0]
-}
+  emit('change')
+}, 1000)
 
 const target = templateRef<HTMLElement>('target', null)
 onClickOutside(target, (event) => {

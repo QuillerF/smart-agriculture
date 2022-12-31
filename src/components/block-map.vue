@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 01:05:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 01:51:59
+ * @LastEditTime: 2022-12-31 11:43:58
 -->
 <template>
   <div class="card">
@@ -12,7 +12,7 @@
     </div>
     <work-bench class="line" @change="addMarkerList"></work-bench>
     <select-custom :options="options" class="select" @change="selectChange"></select-custom>
-    <machine-info ref="machine" class="machine-info"></machine-info>
+    <machine-info ref="machine" class="machine-info" @change="addMarkerList"></machine-info>
   </div>
 </template>
 
@@ -58,7 +58,7 @@ const mapData = ref()
 
 const markersList = ref([] as any)
 
-const addMarkerList = async (markerType: keyof typeof MachineEnum) => {
+const addMarkerList = async (markerType: keyof typeof MachineEnum = 'water') => {
   try {
     removeMarker()
     const icon = MachineEnum[markerType]
