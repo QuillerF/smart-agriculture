@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:52:25
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 00:55:59
+ * @LastEditTime: 2022-12-31 11:22:56
 -->
 <template>
   <div class="card">
@@ -20,18 +20,12 @@
 </template>
 
 <script setup lang="ts">
-// import botanyImg from '@/assets/img/botany.png'
-// import cornImg1 from '@/assets/img/corn1.png'
-// import cornImg2 from '@/assets/img/corn2.png'
-// import cornImg3 from '@/assets/img/corn3.png'
-// import cornImg4 from '@/assets/img/corn4.png'
-// import cornImg5 from '@/assets/img/corn5.png'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
 const store = useSystemStore()
 const { axios, api } = useHttpStore()
 
-const growthData = ref({} as returnType)
+const growthData = ref({} as Partial<returnType>)
 
 interface returnType {
   growth_name: string
@@ -47,21 +41,19 @@ interface returnType {
 }
 
 const getImgUrl = computed(() => {
-  const name = `corn${growthData.value.seq}`
+  const name = `corn${growthData.value.seq || 1}`
   return new URL(`../assets/img/${name}.png`, import.meta.url).href
 })
 
-const queryWebStorage = async () => {
+const queryWebGrowth = async () => {
   try {
-    const { data } = await axios.post<{ data: returnType }>(api.webGrowth, { projectId: store.projectId })
+    const { data = {} } = await axios.post<{ data: returnType }>(api.webGrowth, { projectId: store.projectId })
     growthData.value = data
   } catch (error) {
     console.log(error)
   }
 }
-onMounted(() => {
-  queryWebStorage()
-})
+watch(() => store.projectId, queryWebGrowth, { immediate: true })
 </script>
 
 <style scoped lang="less">
