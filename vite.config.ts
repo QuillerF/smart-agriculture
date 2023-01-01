@@ -17,7 +17,7 @@ const proxyArr = [
 ]
 
 export default defineConfig({
-  base: `/${name}/`,
+  base: `/`,
   plugins: [
     AutoImport({
       dts: './src/auto-imports.d.ts',
@@ -77,7 +77,7 @@ export default defineConfig({
     }
   },
   server: {
-    host: true,
+    host: "0.0.0.0",
     port: 8099,
     open: true,
     cors: true,
