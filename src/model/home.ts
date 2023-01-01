@@ -9,13 +9,13 @@ import yu from '@/assets/svg/weather/yu.svg?component'
 import yun from '@/assets/svg/weather/yun.svg?component'
 
 export enum WeeksEnum {
-  '一' = 0,
+  '日' = 0,
+  '一',
   '二',
   '三',
   '四',
   '五',
-  '六',
-  '日'
+  '六'
 }
 
 export const WeatherImgs: Record<string, any> = {
