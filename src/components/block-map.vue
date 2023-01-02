@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 01:05:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-03 01:53:36
+ * @LastEditTime: 2023-01-03 02:00:16
 -->
 <template>
   <div class="card">
@@ -64,7 +64,6 @@ const markersList = ref([] as any)
  */
 const addMarkerList = async (markerType: keyof typeof MachineEnum = 'water') => {
   try {
-    // removeMarker()
     const icon = MachineEnum[markerType]
     const nowIcon = new Bmap.Icon(icon, new Bmap.Size(54, 54), {
       anchor: new Bmap.Size(10, 25),
@@ -101,7 +100,6 @@ const addMarkerList = async (markerType: keyof typeof MachineEnum = 'water') => 
 
 const changeMarkerShow = (markerType = 'water', isShow = true) => {
   const overlays = mapData.value.getOverlays()
-  console.log(overlays)
   overlays.forEach((el: { [x: string]: any; markerType: string; hide: () => void }) => {
     if (el.markerType === markerType) {
       if (isShow) {
@@ -111,10 +109,6 @@ const changeMarkerShow = (markerType = 'water', isShow = true) => {
       }
     }
   })
-}
-
-const removeMarker = () => {
-  mapData.value.clearOverlays()
 }
 
 const { axios, api } = useHttpStore()

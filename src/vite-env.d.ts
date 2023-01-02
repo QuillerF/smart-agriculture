@@ -21,6 +21,7 @@ declare interface ImportMetaEnv {
   readonly VITE_BASE: string
   readonly VITE_API_BASEURL: string
   readonly VITE_APP_TITLE: string
+  readonly VITE_MANAGE_HOST: string
   // 更多环境变量...
 }
 

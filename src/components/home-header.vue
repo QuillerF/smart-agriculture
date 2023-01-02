@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-12-04 18:37:17
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-02 22:12:41
+ * @LastEditTime: 2023-01-03 02:21:35
 -->
 <template>
   <header class="home-header">
@@ -60,13 +60,19 @@ onMounted(() => {
 })
 
 const getWeather = async () => {
-  const res = await axios.get('https://www.yiketianqi.com/free/day', {
-    appid: '82555458',
-    appsecret: '7KBO1M68',
-    unescape: 1,
-    vue: 1,
-    city: '郑州'
-  })
+  const res = await axios.get(
+    'https://www.yiketianqi.com/free/day',
+    {
+      appid: '82555458',
+      appsecret: '7KBO1M68',
+      unescape: 1,
+      vue: 1,
+      city: '郑州'
+    },
+    {
+      withCredentials: false
+    }
+  )
   sessionStorage.setItem('weather', JSON.stringify(res))
   weather.value = res
 }

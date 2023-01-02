@@ -71,8 +71,8 @@ axiosInstance.interceptors.response.use(
 )
 
 export const service = {
-  get<T = any>(url: string, data?: object): Promise<T> {
-    return axiosInstance.get(url, { params: data })
+  get<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<T> {
+    return axiosInstance.get(url, { ...config, params: data })
   },
 
   post<T = ResponseDataType>(url: string, data?: object, query?: object): Promise<T> {

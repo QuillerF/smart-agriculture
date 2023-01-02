@@ -3,13 +3,13 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 14:49:57
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-30 02:03:03
+ * @LastEditTime: 2023-01-03 02:17:13
 -->
 <template>
   <div class="card">
     <view-title>{{ title }}</view-title>
     <div class="card-list">
-      <dv-scroll-board :config="config" style="height: 330px" />
+      <dv-scroll-board :config="config" style="height: 330px" @click="toManagePage" />
     </div>
   </div>
 </template>
@@ -29,6 +29,13 @@ const title = computed(() => (props.target === 'home' ? '产量统计' : '预警
 const dataList: Ref<returnItemType[]> = ref([])
 
 const dataListWarning: Ref<returnWarningType[]> = ref([])
+
+const toManagePage = (data: any) => {
+  // console.log('data', data)
+  if (data.columnIndex === 3) {
+    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceWarning?deviceType=camera&status=0`)
+  }
+}
 
 const config = reactiveComputed(() => {
   if (props.target === 'home') {

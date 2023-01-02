@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 02:56:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-02 23:28:50
+ * @LastEditTime: 2023-01-03 02:12:10
 -->
 <template>
   <div v-show="isShow" ref="target" class="machine">
@@ -43,12 +43,14 @@
           <span> 远程开关: </span>
           <el-switch v-model="switchVal" @change="switchChange" class="ml-2" style="--el-switch-on-color: #11ab69" />
         </li>
-        <li v-if="markerType === 'water'" class="machine-main-right-link">查看灌溉任务>></li>
+        <li v-if="markerType === 'water'" class="machine-main-right-link" @click="toManagePage('water')">
+          查看灌溉任务>>
+        </li>
       </ul>
     </section>
     <section v-if="markerType === 'watch'" class="machine-bottom">
-      <div class="machine-bottom-button">查看预警记录</div>
-      <div class="machine-bottom-button">查看实时监控</div>
+      <div class="machine-bottom-button" @click="toManagePage('warning')">查看预警记录</div>
+      <div class="machine-bottom-button" @click="toManagePage('watch')">查看实时监控</div>
     </section>
     <section v-if="markerType === 'four'" class="machine-four">
       <div>数据参数 （ 更新时间：{{ updateTime }} ）</div>
@@ -208,6 +210,22 @@ const handleOpen = (value: any, marker: string) => {
     queryWebCollectorGetDevice()
   }
   isShow.value = true
+}
+
+const toManagePage = (markerType: any) => {
+  switch (markerType) {
+    case 'water':
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/assignment?fertilizationId=${machineInfo.value.id}`)
+      break
+    case 'warning':
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceWarning?deviceType=camera`)
+      break
+    case 'watch':
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceCamera/detail/${machineInfo.value.id}`)
+      break
+    default:
+      break
+  }
 }
 
 const queryWebCollectorGetDevice = async (id = '') => {

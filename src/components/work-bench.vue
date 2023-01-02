@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:37:21
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-03 01:51:14
+ * @LastEditTime: 2023-01-03 02:03:14
 -->
 <template>
   <div class="card">
@@ -64,7 +64,8 @@ const emit = defineEmits(['change'])
 
 const handleClick = (item: { key: string; isChecked: boolean }) => {
   if (item.key === 'center') {
-    ElMessage.info('暂无数据')
+    // ElMessage.info('暂无数据')
+    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/system/main`)
     return
   }
   item.isChecked = !item.isChecked
