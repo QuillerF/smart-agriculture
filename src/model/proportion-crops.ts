@@ -92,9 +92,9 @@ export class OptionItem {
     color2,
     center,
     value = {
-      value: 0.5,
+      value: 0,
       unit: '亩',
-      real: 500000
+      real: null
     }
   }: {
     name: string

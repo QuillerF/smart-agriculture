@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 19:29:09
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-27 00:52:09
+ * @LastEditTime: 2023-01-02 22:42:35
 -->
 <template>
   <div class="card">
@@ -18,6 +18,7 @@
 import pieStorage from '@/assets/img/percent-bg.png'
 import { Option, OptionStore } from '@/model/grain-storage'
 import useHttpStore from '@/store/http'
+import useSystemStore from '@/store/system'
 
 const option = ref(Option)
 const optionStore = ref(OptionStore)
@@ -45,10 +46,11 @@ const countRatio = (weight: number, total: number): number => {
   }
   return 0
 }
+const store = useSystemStore()
 
 const queryWebStorage = async () => {
   try {
-    const { data } = await axios.post<{ data: returnItemType }>(api.webStorage, { provinceId: 17 })
+    const { data } = await axios.post<{ data: returnItemType }>(api.webStorage, { provinceId: store.getProvinceId })
     option.value.series[0].data = [{ name: '存储量', value: data.weight }]
     option.value.series[0].axisLine.lineStyle.color[0][0] = countRatio(data.weight, data.total)
     optionStore.value.series[1].data = optionStore.value.series[1].data.map(
@@ -62,9 +64,7 @@ const queryWebStorage = async () => {
   }
 }
 
-onMounted(() => {
-  queryWebStorage()
-})
+watch(() => store.getProvinceId, queryWebStorage, { immediate: true })
 </script>
 
 <style scoped lang="less">

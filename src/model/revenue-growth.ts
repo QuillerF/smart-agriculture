@@ -82,6 +82,7 @@ const Colors = [
   }
 ]
 
+// 配置 收入增长
 export const Option = {
   color: ['#1C86F1'],
   backgroundColor: '#030f30',
@@ -112,17 +113,18 @@ export const Option = {
       show: false
     },
     axisLabel: {
-      color: '#eeeeee'
+      color: '#eeeeee',
+      margin: 10
     }
   },
   yAxis: {
     show: true,
     name: '占比(%)',
     min(data: { min: number }) {
-      return data.min < 0 ? null : 0
+      return data.min < 0 ? data.min - 50 : 0
     },
     max(data: { max: number }) {
-      return data.max < 30 ? 30 : null
+      return data.max < 30 || isNaN(data.max) ? 30 : null
     },
     nameTextStyle: {
       color: '#eee'
@@ -173,7 +175,7 @@ export const Option = {
       data: [] as any,
       label: {
         show: true,
-        formatter: '+{c}%',
+        formatter: (params: { value: number }) => `${params.value > 0 ? '+' : ''}${params.value}%`,
         position: 'top',
         color: '#ffffff'
       },

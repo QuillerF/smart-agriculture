@@ -24,8 +24,8 @@ let colors = [
 ]
 
 let datas = [
-  { name: '未完成', value: 15 },
-  { name: '已完成', value: 85 }
+  { name: '未完成', value: 0 },
+  { name: '已完成', value: 0 }
 ]
 
 export const Option = {

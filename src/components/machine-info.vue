@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 02:56:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-01 01:27:01
+ * @LastEditTime: 2023-01-02 23:28:50
 -->
 <template>
   <div v-show="isShow" ref="target" class="machine">
@@ -59,7 +59,7 @@
         </li>
       </ul>
     </section>
-    <section v-if="markerType === 'four'" class="machine-main-right-link">查看更多数据>></section>
+    <!-- <section v-if="markerType === 'four'" class="machine-main-right-link">查看更多数据>></section> -->
   </div>
 </template>
 
@@ -133,19 +133,19 @@ const fourList = ref([
   },
   {
     label: '空气温度',
-    prop: 'lowTemperatur',
+    prop: 'highTemperatur',
     value: '',
     unit: '℃'
   },
   {
     label: '土壤温度',
-    prop: 'soilTemperature1',
+    prop: 'soilTemperature',
     value: '',
     unit: '℃'
   },
   {
     label: '土壤湿度',
-    prop: 'soilMoisture1',
+    prop: 'soilMoisture',
     value: '',
     unit: '%'
   },

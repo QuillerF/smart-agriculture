@@ -12,7 +12,7 @@ const useSystemStore = defineStore({
     isProject: false
   }),
   getters: {
-    getProvinceId: (state) => state.provinceData.id
+    getProvinceId: (state) => state.provinceData.id || ''
   },
   actions: {
     // 修改用户信息

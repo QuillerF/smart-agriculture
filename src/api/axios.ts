@@ -5,6 +5,7 @@ import { formatJsonToUrlParams, instanceObject } from '@/utils/format'
 import pinia from '@/store'
 import useSystemStore from '@/store/system'
 import qs from 'qs'
+import Cookies from 'js-cookie'
 
 const store = useSystemStore(pinia)
 
@@ -14,10 +15,12 @@ const BASE_PREFIX = import.meta.env.VITE_API_BASEURL
 export const axiosInstance: AxiosInstance = axios.create({
   // 前缀
   baseURL: BASE_PREFIX,
+  withCredentials: true,
   // 超时
   timeout: 1000 * 60 * 60 * 24,
   // 请求头
   headers: {
+    JSESSIONID: Cookies.get('JSESSIONID') || '',
     post: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }

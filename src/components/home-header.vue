@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-12-04 18:37:17
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-29 23:18:48
+ * @LastEditTime: 2023-01-02 22:12:41
 -->
 <template>
   <header class="home-header">
@@ -25,7 +25,7 @@
       </div>
       <div>
         <img :src="topManagerImg" alt="" />
-        <span style="color: #49a3ff">管理员</span>
+        <span style="color: #49a3ff">{{ userName }}</span>
         <span style="margin-left: 10px">退出</span>
       </div>
     </section>
@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import Cookies from 'js-cookie'
 import dayjs from 'dayjs'
 import topPosImg from '@/assets/img/top-pos.png'
 import topManagerImg from '@/assets/img/top-manager.png'
@@ -43,10 +44,14 @@ import useHttpStore from '@/store/http'
 
 const weather: Ref<any> = ref({})
 
+const userName = ref('管理员')
+
 const getWeatherImg = computed(() => WeatherImgs[(weather.value.wea_img as string) || 'qing'])
 
 const { axios, api } = useHttpStore()
+
 onMounted(() => {
+  userName.value = Cookies.get('username') || '管理员'
   if (!sessionStorage.getItem('weather')) {
     getWeather()
     return

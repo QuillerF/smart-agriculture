@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 01:05:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 11:43:58
+ * @LastEditTime: 2023-01-02 23:36:09
 -->
 <template>
   <div class="card">
@@ -117,9 +117,8 @@ const initMap = async () => {
   data.forEach((el: any) => {
     const lntLatJson = JSON.parse(el.points) as any[]
     // 设置中心点
-    const centerLng = ((maxBy(lntLatJson, 'lng')?.lng || 0) + (minBy(lntLatJson, 'lng')?.lng || 0)) / 2
-    const centerLat = ((maxBy(lntLatJson, 'lat')?.lat || 0) + (minBy(lntLatJson, 'lat')?.lat || 0)) / 2
-    map.centerAndZoom(new Bmap.Point(centerLng, centerLat), 16)
+    const centerPoint = new Bmap.Point(el.lng, el.lat)
+    map.centerAndZoom(centerPoint, 16)
 
     // 画线和区域掩膜
     const path = lntLatJson.map((el) => new Bmap.Point(el.lng, el.lat))
@@ -142,11 +141,10 @@ const initMap = async () => {
     map.addOverlay(polygon)
 
     // 添加文本
-    const point = new Bmap.Point(centerLng, centerLat)
     const content = `编号<br/>${el.code}`
     const label = new Bmap.Label(content, {
-      position: point,
-      offset: new Bmap.Size(-40, 0),
+      position: centerPoint,
+      offset: new Bmap.Size(-50, 0),
       enableMassClear: false
     })
     map.addOverlay(label) // 将标注添加到地图中

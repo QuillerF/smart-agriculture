@@ -39,6 +39,7 @@ const rich = {
     lineHeight: 40
   }
 }
+// 环形图配置
 export const Option = {
   backgroundColor: 'transparent',
   series: [
@@ -53,7 +54,7 @@ export const Option = {
       },
       detail: {
         formatter(value: number) {
-          let num = Math.round(value)
+          let num = Number(value).toFixed(1)
           return `{title|存储量}\n{value|${num}}\n{title|万吨}`
         },
         rich,

@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-26 16:16:20
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 01:04:35
+ * @LastEditTime: 2023-01-02 22:46:33
 -->
 <template>
   <div class="card">
@@ -62,9 +62,10 @@ const handleClick = async (data: any) => {
 }
 
 const handleDblclick = () => {
+  store.changeProvinceData({})
   option.value.geo.map = 'china'
   option.value.geo.center = geoCoordMap['陕西']
-  option.value.series[0].data = initMarkerData
+  option.value.series[0].data = initMarkerData.value
 }
 
 const showMarker = () => {

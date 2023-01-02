@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-21 13:28:07
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-31 00:18:08
+ * @LastEditTime: 2023-01-02 22:30:20
 -->
 <template>
   <div class="card">
@@ -16,7 +16,7 @@
 import { Option, ProjectOption, CropTypeEnum } from '@/model/revenue-growth'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
-import { cloneDeep, uniq } from 'lodash'
+import { cloneDeep, uniq, isNil } from 'lodash'
 const props = withDefaults(defineProps<{ target?: 'home' | 'project' }>(), {
   target: 'home'
 })
@@ -43,8 +43,18 @@ const queryWebIncomeRatio = async () => {
     const { data } = await axios.post<{ data: returnItemType }>(api.webIncomeRatio)
     const { wheatLastYear, cornLastYear, riceLastYear, otherLastYear } = data
     const { wheatThisYear, cornThisYear, riceThisYear, otherThisYear } = data
-    option.value.series[0].data = [wheatLastYear, cornLastYear, riceLastYear, otherLastYear].map((el) => el ?? null)
-    option.value.series[1].data = [wheatThisYear, cornThisYear, riceThisYear, otherThisYear].map((el) => el ?? null)
+    option.value.series[0].data = [wheatLastYear, cornLastYear, riceLastYear, otherLastYear].map((el) => ({
+      value: el ?? null,
+      label: {
+        position: el > 0 || isNil(el) ? 'top' : 'bottom'
+      }
+    }))
+    option.value.series[1].data = [wheatThisYear, cornThisYear, riceThisYear, otherThisYear].map((el) => ({
+      value: el ?? null,
+      label: {
+        position: el >= 0 || isNil(el) ? 'top' : 'bottom'
+      }
+    }))
   } catch (error) {
     console.log(error)
   }
