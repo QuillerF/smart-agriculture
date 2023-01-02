@@ -1,11 +1,14 @@
 import useHttpStore from '@/store/http'
+import waterImg from '@/assets/img/marker-water.png'
+import watchImg from '@/assets/img/marker-watch.png'
+import fourImg from '@/assets/img/marker-four.png'
 
 export const MachineEnum = {
-  water: '/src/assets/img/marker-machine.png',
-  watch: '/src/assets/img/marker-watch.png',
-  four: '/src/assets/img/marker-four.png',
-  center: '/src/assets/img/marker-center.png'
+  water: waterImg,
+  watch: watchImg,
+  four: fourImg
 }
+
 const { api } = useHttpStore()
 export const ApiEnum = {
   water: api.webFertilization,

@@ -20,7 +20,6 @@ export const axiosInstance: AxiosInstance = axios.create({
   timeout: 1000 * 60 * 60 * 24,
   // 请求头
   headers: {
-    JSESSIONID: Cookies.get('JSESSIONID') || '',
     post: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }

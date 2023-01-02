@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 11:37:21
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2022-12-05 00:35:58
+ * @LastEditTime: 2023-01-03 01:51:14
 -->
 <template>
   <div class="card">
@@ -12,11 +12,11 @@
       <section
         v-for="item in workList"
         :key="item.label"
-        :active="tabId === item.key"
+        :active="item.isChecked"
         class="chart-item"
         @click="handleClick(item)"
       >
-        <div :active="tabId === item.key" class="chart-item-img">
+        <div :active="item.isChecked" class="chart-item-img">
           <img :src="item.img" alt="" />
         </div>
         <div>{{ item.label }}</div>
@@ -35,36 +35,40 @@ const workList = ref([
   {
     label: '灌溉管理',
     key: 'water',
+    isChecked: true,
     img: waterImg
   },
   {
     label: '监控管理',
     key: 'watch',
+    isChecked: true,
+
     img: watchImg
   },
   {
     label: '四情管理',
     key: 'four',
+    isChecked: true,
+
     img: fourImg
   },
   {
     label: '控制中心',
     key: 'center',
+    isChecked: false,
     img: centerImg
   }
 ])
 
 const emit = defineEmits(['change'])
 
-const tabId = ref('water')
-
-const handleClick = ({ key }: { key: string }) => {
-  if (key === 'center') {
+const handleClick = (item: { key: string; isChecked: boolean }) => {
+  if (item.key === 'center') {
     ElMessage.info('暂无数据')
     return
   }
-  tabId.value = key
-  emit('change', key)
+  item.isChecked = !item.isChecked
+  emit('change', item.key, item.isChecked)
 }
 </script>
 

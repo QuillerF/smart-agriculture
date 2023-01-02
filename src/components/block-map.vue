@@ -3,22 +3,21 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-11-28 01:05:49
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-02 23:36:09
+ * @LastEditTime: 2023-01-03 01:53:36
 -->
 <template>
   <div class="card">
     <div class="card-chart">
       <div ref="chart" class="card-chart-view"></div>
     </div>
-    <work-bench class="line" @change="addMarkerList"></work-bench>
+    <work-bench class="line" @change="changeMarkerShow"></work-bench>
     <select-custom :options="options" class="select" @change="selectChange"></select-custom>
-    <machine-info ref="machine" class="machine-info" @change="addMarkerList"></machine-info>
+    <machine-info ref="machine" class="machine-info"></machine-info>
   </div>
 </template>
 
 <script setup lang="ts">
 import { MachineEnum, ApiEnum } from '@/model/project-map'
-import { maxBy, minBy } from 'lodash'
 import MachineInfo from './machine-info.vue'
 import useHttpStore from '@/store/http'
 import useSystemStore from '@/store/system'
@@ -58,9 +57,14 @@ const mapData = ref()
 
 const markersList = ref([] as any)
 
+/**
+ * @description: 添加标注点
+ * @param {*} markerType
+ * @return {*}
+ */
 const addMarkerList = async (markerType: keyof typeof MachineEnum = 'water') => {
   try {
-    removeMarker()
+    // removeMarker()
     const icon = MachineEnum[markerType]
     const nowIcon = new Bmap.Icon(icon, new Bmap.Size(54, 54), {
       anchor: new Bmap.Size(10, 25),
@@ -77,22 +81,36 @@ const addMarkerList = async (markerType: keyof typeof MachineEnum = 'water') => 
     })
 
     const markerData = pointData.map((el: { point: any; id: any }) => {
-      const marker = new Bmap.Marker(el.point, { icon: nowIcon })
+      const marker = new Bmap.Marker(el.point, { icon: nowIcon, enableMassClear: false })
       marker.id = el.id
+      marker.markerType = markerType
       marker.addEventListener('click', (data: any) => {
         console.log('marker', data)
         machine.value.handleOpen(el, markerType)
       })
       return marker
     })
-
-    markersList.value = markerData
-    markerData.forEach((el: any) => {
+    markersList.value.push(...markerData)
+    markersList.value.forEach((el: any) => {
       mapData.value.addOverlay(el)
     })
   } catch (error) {
     console.log(error)
   }
+}
+
+const changeMarkerShow = (markerType = 'water', isShow = true) => {
+  const overlays = mapData.value.getOverlays()
+  console.log(overlays)
+  overlays.forEach((el: { [x: string]: any; markerType: string; hide: () => void }) => {
+    if (el.markerType === markerType) {
+      if (isShow) {
+        el.show()
+      } else {
+        el.hide()
+      }
+    }
+  })
 }
 
 const removeMarker = () => {
@@ -102,6 +120,10 @@ const removeMarker = () => {
 const { axios, api } = useHttpStore()
 const store = useSystemStore()
 
+/**
+ * @description: 初始化地图
+ * @return {*}
+ */
 const initMap = async () => {
   const { data } = await axios.post<{ data: any }>(api.webProjectLands, {
     projectId: store.projectId
@@ -156,9 +178,10 @@ const initMap = async () => {
       padding: [0, -20, 0, 0],
       backgroundColor: 'transparent'
     })
-
-    addMarkerList('water')
   })
+  addMarkerList('water')
+  addMarkerList('watch')
+  addMarkerList('four')
 }
 
 onMounted(() => {
