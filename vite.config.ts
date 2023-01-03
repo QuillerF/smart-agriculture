@@ -13,7 +13,7 @@ import { name } from './package.json'
 // 需要代理请求的nginx地址
 const proxyArr = [
   'https://console-mock.apipost.cn/mock/1687b7c4-ec1e-4b16-ab7e-b9e85e03300d',
-  'http://118.190.113.210:8090'
+  'http://118.190.113.210:8091'
 ]
 
 export default defineConfig({
@@ -83,10 +83,10 @@ export default defineConfig({
     cors: true,
     // 接口代理
     proxy: {
-      '/api': {
+      '/zhny': {
         target: proxyArr[1],
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/zhny/, '')
       }
     }
   }

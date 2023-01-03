@@ -25,7 +25,7 @@
       </div>
       <div>
         <img :src="topManagerImg" alt="" />
-        <span style="color: #49a3ff">{{ userName }}</span>
+        <span style="color: #49a3ff">{{ userName || "--" }}</span>
         <span style="margin-left: 10px">退出</span>
       </div>
     </section>
@@ -44,14 +44,14 @@ import useHttpStore from '@/store/http'
 
 const weather: Ref<any> = ref({})
 
-const userName = ref('管理员')
+const userName = ref('--')
 
 const getWeatherImg = computed(() => WeatherImgs[(weather.value.wea_img as string) || 'qing'])
 
 const { axios, api } = useHttpStore()
 
 onMounted(() => {
-  userName.value = Cookies.get('username') || '管理员'
+  userName.value = Cookies.get('username') || '--'
   if (!sessionStorage.getItem('weather')) {
     getWeather()
     return
