@@ -26,7 +26,7 @@
       <div>
         <img :src="topManagerImg" alt="" />
         <span style="color: #49a3ff">{{ userName || "--" }}</span>
-        <span style="margin-left: 10px">退出</span>
+<!--        <span style="margin-left: 10px">退出</span>-->
       </div>
     </section>
   </header>
