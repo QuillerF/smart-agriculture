@@ -65,7 +65,7 @@ const emit = defineEmits(['change'])
 const handleClick = (item: { key: string; isChecked: boolean }) => {
   if (item.key === 'center') {
     // ElMessage.info('暂无数据')
-    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/system/main`)
+    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/`)
     return
   }
   item.isChecked = !item.isChecked

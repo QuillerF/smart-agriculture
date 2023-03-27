@@ -215,13 +215,13 @@ const handleOpen = (value: any, marker: string) => {
 const toManagePage = (markerType: any) => {
   switch (markerType) {
     case 'water':
-      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/assignment?fertilizationId=${machineInfo.value.id}`)
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/zhny/assignment?fertilizationId=${machineInfo.value.id}`)
       break
     case 'warning':
-      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceWarning?deviceType=camera`)
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/zhny/deviceWarning?deviceType=camera`)
       break
     case 'watch':
-      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceCamera/detail/${machineInfo.value.id}`)
+      window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/zhny/deviceCamera/detail/${machineInfo.value.id}`)
       break
     default:
       break

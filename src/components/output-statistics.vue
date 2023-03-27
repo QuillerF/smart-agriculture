@@ -33,7 +33,7 @@ const dataListWarning: Ref<returnWarningType[]> = ref([])
 const toManagePage = (data: any) => {
   // console.log('data', data)
   if (data.columnIndex === 3) {
-    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/deviceWarning?deviceType=camera&status=0`)
+    window.open(`${import.meta.env.VITE_MANAGE_HOST}/zhny/zhny/deviceWarning?deviceType=camera&status=0`)
   }
 }
 
