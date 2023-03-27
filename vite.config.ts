@@ -85,8 +85,8 @@ export default defineConfig({
     proxy: {
       '/zhny': {
         target: proxyArr[1],
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/zhny/, '')
+        changeOrigin: true
+        // rewrite: (path) => path.replace(/^\/zhny/, '')
       }
     }
   }
