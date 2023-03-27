@@ -39,6 +39,25 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.name === 'project') {
     store.changeIsProject(true)
+    // 临时设置首页是兰考地区 设置数据
+    if (!store.provinceData.id) {
+      store.changeProvinceData({
+        id: 17,
+        name: '河南省',
+        area: 17838.83,
+        value: ['113.759380', '34.771713'],
+        standbyValue: [113.46, 34.25]
+      })
+    }
+    if (!store.cityId) {
+      store.changeCityId('273')
+    }
+    if (!store.districtId) {
+      store.changeDistrictId('1856')
+    }
+    if (!store.options.length) {
+      store.changeOptions([{ value: 1856, label: '河南省-兰考县' }])
+    }
   } else {
     store.changeIsProject(false)
   }

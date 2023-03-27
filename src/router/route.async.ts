@@ -5,7 +5,7 @@ const asyncRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'index',
-    redirect: '/home'
+    redirect: '/project'
   },
   {
     path: '/home',
