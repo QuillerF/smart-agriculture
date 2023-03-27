@@ -36,7 +36,7 @@ export default {
   // 水肥机远程开关
   webFertilizationEdit: '/web/fertilization/edit',
   // 查看灌溉任务
-  getZhnyAssignment: '/zhny/assignment?fertilizationId=1',
+  getZhnyAssignment: '/zhny/zhny/assignment?fertilizationId=1',
   // ? 监控管理
   // 监控管理
   webCamera: '/web/camera',
@@ -52,5 +52,5 @@ export default {
   // ? 预警记录-地块大屏
   webWarning: '/web/warning',
   // 查看预警
-  getZhnyDeviceWarning: '/zhny/deviceWarning?deviceType=camera&status=0'
+  getZhnyDeviceWarning: '/zhny/zhny/deviceWarning?deviceType=camera&status=0'
 }
