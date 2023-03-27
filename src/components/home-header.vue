@@ -3,7 +3,7 @@
  * @Author: yuanxiongfeng
  * @Date: 2022-12-04 18:37:17
  * @LastEditors: yuanxiongfeng
- * @LastEditTime: 2023-01-03 02:21:35
+ * @LastEditTime: 2023-03-27 22:22:34
 -->
 <template>
   <header class="home-header">
@@ -25,8 +25,8 @@
       </div>
       <div>
         <img :src="topManagerImg" alt="" />
-        <span style="color: #49a3ff">{{ userName || "--" }}</span>
-<!--        <span style="margin-left: 10px">退出</span>-->
+        <span style="color: #49a3ff">{{ userName || '--' }}</span>
+        <!--        <span style="margin-left: 10px">退出</span>-->
       </div>
     </section>
   </header>
